@@ -19,3 +19,20 @@ Now I want an HTML / Javascript implementation of the game / puzzle we designed.
 * Allow the user to reset the map and start over.
 
 What else should we include in the implementation?
+
+## Revisions
+
+* Put the Home link on a line above the title.
+* Left-justify the "Redistricting Puzzles" title.
+
+* Use hexagonal blocks to clarify adjacency, instead of square blocks.
+* Use a palette of CVD-friendly colors for the districts.
+* Use CVD-friendly colors for the party colors, instead of cyan and green.
+
+* Consolidate information about districts in a panel to the left of the "map" of blocks:
+  - Show the district # and color
+  - Show the number of blocks assigned to the district
+  - Show the party split of the blocks assigned to the district, e.g., 5-0, 4-1, 3-2, etc.
+
+* Change "Hello, World!" to TODO.
+* Remove the "This site is open source ..." from the site's footer.
