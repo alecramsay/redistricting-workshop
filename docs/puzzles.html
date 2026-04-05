@@ -99,8 +99,8 @@
     }
 
     .district-panel th {
-      text-align: left;
-      padding: 4px 10px 6px;
+      text-align: center;
+      padding: 4px 8px 6px;
       color: #666;
       font-weight: 600;
       font-size: 0.78rem;
@@ -108,14 +108,18 @@
       white-space: nowrap;
     }
 
+    .district-panel th.left { text-align: left; }
+
     .district-panel td {
-      padding: 6px 10px;
+      padding: 6px 8px;
       white-space: nowrap;
+      text-align: center;
     }
+
+    .district-panel td.left { text-align: left; }
 
     .d-row {
       cursor: pointer;
-      border-radius: 3px;
     }
     .d-row:hover td { background: #E8E8E8; }
     .d-row.active td { background: #DDEEFF; }
@@ -125,37 +129,29 @@
       width: 16px;
       height: 16px;
       border-radius: 3px;
-      border: 1px solid rgba(0,0,0,0.15);
+      border: 1px solid rgba(0,0,0,0.2);
       vertical-align: middle;
     }
 
-    .d-num {
-      font-weight: 700;
-    }
+    .d-num { font-weight: 700; }
 
-    .split-cell {
-      font-variant-numeric: tabular-nums;
-      color: #444;
-    }
+    .num-cell { font-variant-numeric: tabular-nums; }
+
+    .c-yes { color: #166534; font-weight: 600; }
+    .c-no  { color: #B45309; font-weight: 600; }
+    .c-na  { color: #AAA; }
 
     /* Status */
 
     .status-row {
       font-size: 0.875rem;
-      margin-bottom: 5px;
+      margin-bottom: 12px;
     }
 
-    .lean-label   { font-weight: 600; }
-    .lean-blue    { color: #005F8E; }
-    .lean-orange  { color: #9A5C00; }
-    .lean-pending { color: #888; }
-
-    .warning-text {
-      font-size: 0.8rem;
-      color: #B45309;
-      min-height: 1.2em;
-      margin-bottom: 4px;
-    }
+    .split-label   { font-weight: 600; }
+    .split-orange  { color: #9A5C00; }
+    .split-green   { color: #166534; }
+    .split-pending { color: #888; }
 
     .success-banner {
       display: none;
@@ -177,14 +173,14 @@
 <section class="geography">
   <p>The map shows <strong>25 blocks</strong> arranged in a 5&#215;5 hexagonal grid,
      representing a simplified state with
-     <strong>15 blue voters</strong> and <strong>10 orange voters</strong>.
+     <strong>15 orange voters</strong> and <strong>10 green voters</strong>.
      Your task is to divide the map into <strong>5 districts</strong> of exactly 5 contiguous blocks each.</p>
   <ul>
     <li>A district is won by whichever party holds a <strong>majority</strong>
         &#8212; at least 3 of its 5 blocks.</li>
     <li>Districts must be <strong>contiguous</strong>: every block in a district must
         share an edge with at least one other block in the same district.</li>
-    <li>The dot inside each block shows the block&#8217;s party (blue or orange).
+    <li>The dot inside each block shows the block&#8217;s party (orange or green).
         The background color shows which district it belongs to.</li>
   </ul>
   <p>Click a district row in the panel to select it, then click blocks on the map to assign them.
@@ -196,9 +192,9 @@
 <div class="puzzle-controls">
   <label for="puzzle-select">Puzzle:</label>
   <select id="puzzle-select" onchange="selectPuzzle(+this.value)">
-    <option value="0">1 &#8212; Proportional (3 blue, 2 orange)</option>
-    <option value="1">2 &#8212; Blue Gerrymander (4 blue, 1 orange)</option>
-    <option value="2">3 &#8212; Orange Gerrymander (2 blue, 3 orange)</option>
+    <option value="0">1 &#8212; Proportional (3 orange, 2 green)</option>
+    <option value="1">2 &#8212; Orange Gerrymander (4 orange, 1 green)</option>
+    <option value="2">3 &#8212; Green Gerrymander (2 orange, 3 green)</option>
   </select>
   <button class="btn-reset" onclick="resetPuzzle()">Reset</button>
 </div>
@@ -209,9 +205,18 @@
   <table class="district-panel" id="district-panel">
     <thead>
       <tr>
-        <th colspan="2">District</th>
-        <th>Blocks</th>
-        <th>Split (B&#8211;O)</th>
+        <th colspan="2" class="left">District</th>
+        <th>Assigned</th>
+        <th>#O</th>
+        <th>#G</th>
+        <th title="Contiguous">
+          <!-- connected-nodes icon -->
+          <svg width="20" height="14" viewBox="0 0 20 14" aria-label="Contiguous">
+            <circle cx="4"  cy="7" r="3" stroke="#666" stroke-width="1.5" fill="none"/>
+            <line   x1="7"  y1="7" x2="13" y2="7" stroke="#666" stroke-width="1.5"/>
+            <circle cx="16" cy="7" r="3" stroke="#666" stroke-width="1.5" fill="none"/>
+          </svg>
+        </th>
       </tr>
     </thead>
     <tbody id="district-tbody"></tbody>
@@ -219,8 +224,7 @@
   <svg id="hex-grid" xmlns="http://www.w3.org/2000/svg"></svg>
 </div>
 
-<div class="status-row" id="lean-row"></div>
-<div class="warning-text" id="warning-text"></div>
+<div class="status-row" id="split-row"></div>
 <div class="success-banner" id="success-banner"></div>
 
 <script>
@@ -230,20 +234,22 @@
 
   const DISTRICT_COLORS = [
     '#CCCCCC',  // 0 – unassigned
-    '#CC6677',  // 1 – rose     (Tol muted)
-    '#332288',  // 2 – indigo   (Tol muted)
-    '#44AA99',  // 3 – teal     (Tol muted)
-    '#DDCC77',  // 4 – sand     (Tol muted)
-    '#AA4499',  // 5 – mauve    (Tol muted)
+    '#CC6677',  // 1 – rose       (Tol muted)
+    '#332288',  // 2 – indigo     (Tol muted)
+    '#88CCEE',  // 3 – light blue (Tol muted)
+    '#DDCC77',  // 4 – sand       (Tol muted)
+    '#AA4499',  // 5 – mauve      (Tol muted)
   ];
 
+  const DISTRICT_FILL_OPACITY = '0.5';  // reduces district fill so party dots stand out
+
   const PARTY_COLORS = {
-    C: '#56B4E9',  // sky blue  (Okabe-Ito) — "blue" party
-    G: '#E69F00',  // amber     (Okabe-Ito) — "orange" party
+    C: '#E69F00',  // amber/orange (Okabe-Ito) — "orange" party
+    G: '#009E73',  // bluish green (Okabe-Ito) — "green" party
   };
 
   // ── Voter map ──────────────────────────────────────────────────────────────
-  // 'C' = blue party, 'G' = orange party.
+  // 'C' = orange party, 'G' = green party.
   // Row 0 = top, col 0 = left.
 
   const VOTER_MAP = [
@@ -259,17 +265,17 @@
   const PUZZLES = [
     {
       name:   'proportional',
-      goal:   'Goal: Draw a map where blue wins 3 districts and orange wins 2.',
+      goal:   'Goal: Draw a map where orange wins 3 districts and green wins 2.',
       target: { C: 3, G: 2 },
     },
     {
-      name:   'blue gerrymander',
-      goal:   'Goal: Draw a map where blue wins 4 districts and orange wins only 1.',
+      name:   'orange gerrymander',
+      goal:   'Goal: Draw a map where orange wins 4 districts and green wins only 1.',
       target: { C: 4, G: 1 },
     },
     {
-      name:   'orange gerrymander',
-      goal:   'Goal: Draw a map where orange wins 3 districts despite having fewer voters.',
+      name:   'green gerrymander',
+      goal:   'Goal: Draw a map where green wins 3 districts despite having fewer voters.',
       target: { C: 2, G: 3 },
     },
   ];
@@ -400,24 +406,25 @@
         const d = assignments[cellIdx(r, c)];
         const [cx, cy] = hexCenter(r, c);
 
-        // Hex polygon
+        // Hex polygon — semi-transparent fill so party dots stand out
         const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
         poly.setAttribute('points',       hexPoints(cx, cy));
         poly.setAttribute('fill',         DISTRICT_COLORS[d]);
+        poly.setAttribute('fill-opacity', DISTRICT_FILL_OPACITY);
         poly.setAttribute('stroke',       '#888');
         poly.setAttribute('stroke-width', '1');
         poly.style.cursor = 'pointer';
 
-        // Hover: preview the active district color
+        // Hover: preview the active district color at lower opacity
         poly.addEventListener('mouseenter', () => {
           if (assignments[cellIdx(r, c)] !== currentDistrict) {
-            poly.setAttribute('fill',    DISTRICT_COLORS[currentDistrict]);
-            poly.setAttribute('opacity', '0.6');
+            poly.setAttribute('fill',         DISTRICT_COLORS[currentDistrict]);
+            poly.setAttribute('fill-opacity', '0.35');
           }
         });
         poly.addEventListener('mouseleave', () => {
-          poly.setAttribute('fill',    DISTRICT_COLORS[assignments[cellIdx(r, c)]]);
-          poly.setAttribute('opacity', '1');
+          poly.setAttribute('fill',         DISTRICT_COLORS[assignments[cellIdx(r, c)]]);
+          poly.setAttribute('fill-opacity', DISTRICT_FILL_OPACITY);
         });
         poly.addEventListener('click', () => handleCellClick(r, c));
         svg.appendChild(poly);
@@ -446,33 +453,45 @@
       tr.className = 'd-row' + (d === currentDistrict ? ' active' : '');
       tr.addEventListener('click', () => selectDistrict(d));
 
-      // Swatch
+      // Color swatch
       const tdSwatch = document.createElement('td');
+      tdSwatch.className = 'left';
       tdSwatch.innerHTML = `<span class="swatch" style="background:${DISTRICT_COLORS[d]}"></span>`;
 
       // District number
       const tdNum = document.createElement('td');
-      tdNum.className   = 'd-num';
+      tdNum.className   = 'd-num left';
       tdNum.textContent = d;
 
-      // Block count
-      const tdBlocks = document.createElement('td');
-      tdBlocks.textContent = `${res.size}/5`;
+      // Assigned count
+      const tdAssigned = document.createElement('td');
+      tdAssigned.className   = 'num-cell';
+      tdAssigned.textContent = `${res.size}/5`;
 
-      // Party split
-      const tdSplit = document.createElement('td');
-      tdSplit.className = 'split-cell';
+      // Orange block count (#O)
+      const tdO = document.createElement('td');
+      tdO.className   = 'num-cell';
+      tdO.textContent = res.size > 0 ? res.C : '—';
+
+      // Green block count (#G)
+      const tdG = document.createElement('td');
+      tdG.className   = 'num-cell';
+      tdG.textContent = res.size > 0 ? res.G : '—';
+
+      // Contiguous indicator
+      const tdC = document.createElement('td');
       if (res.size === 0) {
-        tdSplit.textContent = '—';
-      } else if (res.winner && res.contiguous) {
-        tdSplit.textContent = `${res.C}\u2013${res.G} \u2713`;  // en-dash, checkmark
-      } else if (res.size > 0 && !res.contiguous) {
-        tdSplit.textContent = `${res.C}\u2013${res.G} !`;
+        tdC.className   = 'c-na';
+        tdC.textContent = '—';
+      } else if (res.contiguous) {
+        tdC.className   = 'c-yes';
+        tdC.textContent = '\u2713';  // ✓
       } else {
-        tdSplit.textContent = `${res.C}\u2013${res.G}`;
+        tdC.className   = 'c-no';
+        tdC.textContent = '\u2717';  // ✗
       }
 
-      tr.append(tdSwatch, tdNum, tdBlocks, tdSplit);
+      tr.append(tdSwatch, tdNum, tdAssigned, tdO, tdG, tdC);
       tbody.appendChild(tr);
     }
   }
@@ -480,33 +499,26 @@
   function renderStatusBar() {
     const results = Array.from({ length: 5 }, (_, i) => districtResult(i + 1));
 
-    const blueWins   = results.filter(r => r.winner === 'C' && r.contiguous).length;
-    const orangeWins = results.filter(r => r.winner === 'G' && r.contiguous).length;
-    const pending    = 5 - blueWins - orangeWins;
+    const orangeWins = results.filter(r => r.winner === 'C' && r.contiguous).length;
+    const greenWins  = results.filter(r => r.winner === 'G' && r.contiguous).length;
+    const pending    = 5 - orangeWins - greenWins;
 
-    let lean = `<span class="lean-label">Partisan lean:&nbsp;</span>`;
-    lean += `<span class="lean-blue">Blue ${blueWins}</span>`;
-    lean += `&nbsp;&nbsp;`;
-    lean += `<span class="lean-orange">Orange ${orangeWins}</span>`;
+    let split = `<span class="split-label">Partisan split:&nbsp;</span>`;
+    split += `<span class="split-orange">Orange ${orangeWins}</span>`;
+    split += `&nbsp;&nbsp;`;
+    split += `<span class="split-green">Green ${greenWins}</span>`;
     if (pending > 0)
-      lean += `&nbsp;&nbsp;<span class="lean-pending">(${pending} district${pending !== 1 ? 's' : ''} incomplete)</span>`;
-    document.getElementById('lean-row').innerHTML = lean;
+      split += `&nbsp;&nbsp;<span class="split-pending">(${pending} district${pending !== 1 ? 's' : ''} incomplete)</span>`;
+    document.getElementById('split-row').innerHTML = split;
 
     document.getElementById('puzzle-goal').textContent = PUZZLES[currentPuzzle].goal;
-
-    const broken = results
-      .map((r, i) => [r, i + 1])
-      .filter(([r]) => r.size > 0 && !r.contiguous)
-      .map(([, d]) => `District ${d}`);
-    document.getElementById('warning-text').textContent =
-      broken.length ? `Not contiguous: ${broken.join(', ')}` : '';
 
     const puzzle      = PUZZLES[currentPuzzle];
     const allAssigned = assignments.every(a => a !== 0);
     const allValid    = results.every(r => r.contiguous);
     const solved      = allAssigned && allValid
-                     && blueWins   === puzzle.target.C
-                     && orangeWins === puzzle.target.G;
+                     && orangeWins === puzzle.target.C
+                     && greenWins  === puzzle.target.G;
 
     const banner = document.getElementById('success-banner');
     banner.style.display = solved ? 'block' : 'none';
