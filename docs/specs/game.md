@@ -1,3 +1,5 @@
+# Game / Puzzle Design
+
 Now I want to design an interactive "game" for exploring redistricting and gerrymandering.
 
 I want to borrow aspects of these two sources:
@@ -14,6 +16,7 @@ I want to design a game that has the following features:
 * Has 21 cyan blocks and 14 green blocks
 * So a proportional map would be 3 cyan and 2 green districts, 
   where a district goes for a party by having a majority of voters
+* Districts must be contiguous, i.e., they must be made up of adjacent blocks
 
 * No complicating minority considerations — just partisan
 * For the default configuration of voters — i.e., the default political geography — I want it to be possible to draw maps with:
@@ -26,3 +29,14 @@ I want to design a game that has the following features:
 Can you help me design this game?
 
 (Once I have a solid design, I will ask you to implement it in code, but for now I just want to focus on the design.)
+
+## Revisions to Simplify
+
+Let's try to simplify things:
+
+* Use a 5 x 5 grid of blocks, for a total of 25 blocks
+* Use 15 cyan blocks and 10 green blocks
+* Find a configuration of blocks that allows for these 3 scenarios:
+  - 4 cyan and 1 green district
+  - 3 cyan and 2 green, and
+  - 2 cyan and 3 green
