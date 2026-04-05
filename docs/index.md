@@ -3,6 +3,6 @@ layout: default
 title: Home
 ---
 
-Hello, World!
+TODO
 
 [Redistricting Puzzles](puzzles.html)
