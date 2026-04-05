@@ -36,3 +36,14 @@ What else should we include in the implementation?
 
 * Change "Hello, World!" to TODO.
 * Remove the "This site is open source ..." from the site's footer.
+
+## More Revisions
+
+* Add an explicit contiguous column showing a check (yes) or x (no) for each district, as opposed to separately below.
+  Use an icon for the column heading, like Dave's Redistricting does, instead of the word "Contiguous".
+* Replace the district color green with a different color, so green can be used for a party.
+* Make the orange party green (G); and make the blue party orange (O). 
+* Reduce the opactity of the district colors, so the underlying blocks are more visible in contrast.
+* Make the "Blocks" heading "Assigned", to clarify that it shows the number of blocks assigned to the district.
+* Makes the "Split (B-O)" two separate columns "#O" (for the number of orange blocks) and "#G" (for the number of green blocks).
+* Call "Partisan Lean" at the bottom "Partisan Split" instead.
