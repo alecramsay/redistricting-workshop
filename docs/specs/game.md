@@ -37,6 +37,6 @@ Let's try to simplify things:
 * Use a 5 x 5 grid of blocks, for a total of 25 blocks
 * Use 15 cyan blocks and 10 green blocks
 * Find a configuration of blocks that allows for these 3 scenarios:
-  - 4 cyan and 1 green district
+  - 4 cyan and 1 green district (5-0 is unnecessarily extreme)
   - 3 cyan and 2 green, and
   - 2 cyan and 3 green
