@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redistricting Puzzles</title>
+  <style>
+    :root {
+      --cell-size: 68px;
+      --dot-size:  24px;
+      --cell-gap:   3px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #F5F5F5;
+      color: #1A1A1A;
+      padding: 28px 24px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 { font-size: 1.5rem; }
+
+    .exit-link {
+      font-size: 0.875rem;
+      color: #666;
+      text-decoration: none;
+    }
+    .exit-link:hover { text-decoration: underline; }
+
+    .geography {
+      max-width: 540px;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #333;
+    }
+    .geography p + p { margin-top: 8px; }
+    .geography ul { margin: 6px 0 0 22px; }
+
+    hr {
+      border: none;
+      border-top: 1px solid #DDD;
+      margin: 24px 0;
+    }
+
+    .puzzle-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    label[for="puzzle-select"] {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    select#puzzle-select {
+      font-size: 0.875rem;
+      padding: 5px 8px;
+      border: 1px solid #BBB;
+      border-radius: 4px;
+      background: #FFF;
+      cursor: pointer;
+    }
+
+    .btn-reset {
+      font-size: 0.875rem;
+      padding: 5px 12px;
+      border: 1px solid #BBB;
+      border-radius: 4px;
+      background: #FFF;
+      cursor: pointer;
+    }
+    .btn-reset:hover { background: #EEE; }
+
+    .puzzle-goal {
+      font-size: 0.875rem;
+      color: #555;
+      margin-bottom: 18px;
+    }
+
+    .district-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .district-row-label {
+      font-size: 0.8rem;
+      color: #666;
+      min-width: 58px;
+    }
+
+    .district-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 5px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #FFF;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    }
+    .district-btn.active {
+      border-color: #111;
+      outline: 2px solid #111;
+      outline-offset: 1px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, var(--cell-size));
+      gap: var(--cell-gap);
+      margin-bottom: 20px;
+    }
+
+    .cell {
+      width: var(--cell-size);
+      height: var(--cell-size);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .cell:hover { filter: brightness(1.1); }
+
+    .party-dot {
+      width: var(--dot-size);
+      height: var(--dot-size);
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.75);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+      pointer-events: none;
+    }
+
+    .status-row {
+      font-size: 0.875rem;
+      margin-bottom: 5px;
+    }
+
+    .lean-label   { font-weight: 600; }
+    .lean-cyan    { color: #0284C7; }
+    .lean-green   { color: #15803D; }
+    .lean-pending { color: #888; }
+
+    .warning-text {
+      font-size: 0.8rem;
+      color: #B45309;
+      min-height: 1.2em;
+    }
+
+    .success-banner {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #DCFCE7;
+      border: 1px solid #86EFAC;
+      border-radius: 6px;
+      font-weight: 600;
+      color: #166534;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="page-header">
+  <a class="exit-link" href="./">&#8592; Home</a>
+  <h1>Redistricting Puzzles</h1>
+</header>
+
+<section class="geography">
+  <p>The map shows <strong>25 blocks</strong> arranged in a 5&#215;5 grid,
+     representing a simplified state with
+     <strong>15 cyan voters</strong> and <strong>10 green voters</strong>.
+     Your task is to divide the map into <strong>5 districts</strong> of
+     exactly 5 contiguous blocks each.</p>
+  <ul>
+    <li>A district is won by whichever party holds a <strong>majority</strong>
+        &#8212; at least 3 of its 5 blocks.</li>
+    <li>Districts must be <strong>contiguous</strong>: every block in a district
+        must share an edge with at least one other block in that district.</li>
+    <li>The colored dot inside each block shows the block&#8217;s party.
+        The background color shows which district it belongs to.</li>
+  </ul>
+  <p>Select a district button, then click blocks to assign them.
+     Clicking a block already in the active district removes it.</p>
+</section>
+
+<hr>
+
+<div class="puzzle-controls">
+  <label for="puzzle-select">Puzzle:</label>
+  <select id="puzzle-select" onchange="selectPuzzle(+this.value)">
+    <option value="0">1 &#8212; Proportional (3 cyan, 2 green)</option>
+    <option value="1">2 &#8212; Cyan Gerrymander (4 cyan, 1 green)</option>
+    <option value="2">3 &#8212; Green Gerrymander (2 cyan, 3 green)</option>
+  </select>
+  <button class="btn-reset" onclick="resetPuzzle()">Reset</button>
+</div>
+
+<p class="puzzle-goal" id="puzzle-goal"></p>
+
+<div class="district-row">
+  <span class="district-row-label">District:</span>
+  <button class="district-btn" id="btn-d1" onclick="selectDistrict(1)">1</button>
+  <button class="district-btn" id="btn-d2" onclick="selectDistrict(2)">2</button>
+  <button class="district-btn" id="btn-d3" onclick="selectDistrict(3)">3</button>
+  <button class="district-btn" id="btn-d4" onclick="selectDistrict(4)">4</button>
+  <button class="district-btn" id="btn-d5" onclick="selectDistrict(5)">5</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="status-row" id="lean-row"></div>
+<div class="warning-text" id="warning-text"></div>
+<div class="success-banner" id="success-banner"></div>
+
+<script>
+  // ── Colors ─────────────────────────────────────────────────────────────────
+  // Edit these to experiment with the color scheme.
+
+  const DISTRICT_COLORS = [
+    '#D0D0D0',  // 0 – unassigned
+    '#F97316',  // 1 – orange
+    '#8B5CF6',  // 2 – violet
+    '#F59E0B',  // 3 – amber
+    '#EC4899',  // 4 – pink
+    '#6366F1',  // 5 – indigo
+  ];
+
+  const PARTY_COLORS = {
+    C: '#06B6D4',  // cyan party
+    G: '#16A34A',  // green party
+  };
+
+  // ── Voter map ──────────────────────────────────────────────────────────────
+  // 'C' = cyan voter, 'G' = green voter.
+  // Row 0 = top row, col 0 = leftmost column.
+
+  const VOTER_MAP = [
+    ['C','C','C','C','C'],
+    ['C','G','G','G','C'],
+    ['G','G','G','G','C'],
+    ['C','G','G','G','C'],
+    ['C','C','C','C','C'],
+  ];
+
+  // ── Puzzles ────────────────────────────────────────────────────────────────
+
+  const PUZZLES = [
+    {
+      name:   'proportional',
+      goal:   'Goal: Draw a map where cyan wins 3 districts and green wins 2.',
+      target: { cyan: 3, green: 2 },
+    },
+    {
+      name:   'cyan gerrymander',
+      goal:   'Goal: Draw a map where cyan wins 4 districts and green wins only 1.',
+      target: { cyan: 4, green: 1 },
+    },
+    {
+      name:   'green gerrymander',
+      goal:   'Goal: Draw a map where green wins 3 districts despite having fewer voters.',
+      target: { cyan: 2, green: 3 },
+    },
+  ];
+
+  // ── State ──────────────────────────────────────────────────────────────────
+
+  let currentPuzzle   = 0;
+  let currentDistrict = 1;
+  let assignments     = Array(25).fill(0);  // row*5+col → district number (0 = unassigned)
+
+  // ── Core logic ─────────────────────────────────────────────────────────────
+
+  const cellIdx = (r, c) => r * 5 + c;
+
+  function isContiguous(d) {
+    const cells = [];
+    for (let r = 0; r < 5; r++)
+      for (let c = 0; c < 5; c++)
+        if (assignments[cellIdx(r, c)] === d) cells.push([r, c]);
+    if (cells.length === 0) return true;
+
+    const inDistrict = new Set(cells.map(([r, c]) => cellIdx(r, c)));
+    const visited    = new Set([cellIdx(cells[0][0], cells[0][1])]);
+    const queue      = [cells[0]];
+
+    while (queue.length) {
+      const [r, c] = queue.shift();
+      for (const [dr, dc] of [[-1,0],[1,0],[0,-1],[0,1]]) {
+        const nr = r + dr, nc = c + dc;
+        const ni = cellIdx(nr, nc);
+        if (nr >= 0 && nr < 5 && nc >= 0 && nc < 5 && inDistrict.has(ni) && !visited.has(ni)) {
+          visited.add(ni);
+          queue.push([nr, nc]);
+        }
+      }
+    }
+    return visited.size === cells.length;
+  }
+
+  function districtResult(d) {
+    let cyan = 0, green = 0;
+    for (let r = 0; r < 5; r++)
+      for (let c = 0; c < 5; c++)
+        if (assignments[cellIdx(r, c)] === d)
+          VOTER_MAP[r][c] === 'C' ? cyan++ : green++;
+    const size       = cyan + green;
+    const contiguous = size === 0 || isContiguous(d);
+    const winner     = size === 5 ? (cyan >= 3 ? 'C' : 'G') : null;
+    return { size, cyan, green, contiguous, winner };
+  }
+
+  // ── Event handlers ─────────────────────────────────────────────────────────
+
+  function handleCellClick(r, c) {
+    const i = cellIdx(r, c);
+    assignments[i] = assignments[i] === currentDistrict ? 0 : currentDistrict;
+    render();
+  }
+
+  function selectDistrict(d) {
+    currentDistrict = d;
+    renderDistrictButtons();
+  }
+
+  function selectPuzzle(i) {
+    currentPuzzle   = i;
+    assignments     = Array(25).fill(0);
+    currentDistrict = 1;
+    render();
+  }
+
+  function resetPuzzle() {
+    assignments = Array(25).fill(0);
+    render();
+  }
+
+  // ── Rendering ──────────────────────────────────────────────────────────────
+
+  function render() {
+    renderGrid();
+    renderDistrictButtons();
+    renderStatus();
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    for (let r = 0; r < 5; r++) {
+      for (let c = 0; c < 5; c++) {
+        const d    = assignments[cellIdx(r, c)];
+        const cell = document.createElement('div');
+        cell.className        = 'cell';
+        cell.style.background = DISTRICT_COLORS[d];
+        cell.addEventListener('click', () => handleCellClick(r, c));
+
+        const dot = document.createElement('div');
+        dot.className        = 'party-dot';
+        dot.style.background = PARTY_COLORS[VOTER_MAP[r][c]];
+        cell.appendChild(dot);
+        grid.appendChild(cell);
+      }
+    }
+  }
+
+  function renderDistrictButtons() {
+    for (let d = 1; d <= 5; d++) {
+      const btn = document.getElementById(`btn-d${d}`);
+      btn.style.background = DISTRICT_COLORS[d];
+      btn.classList.toggle('active', d === currentDistrict);
+    }
+  }
+
+  function renderStatus() {
+    const results = Array.from({ length: 5 }, (_, i) => districtResult(i + 1));
+
+    const cyanWins  = results.filter(r => r.winner === 'C' && r.contiguous).length;
+    const greenWins = results.filter(r => r.winner === 'G' && r.contiguous).length;
+    const pending   = 5 - cyanWins - greenWins;
+
+    let lean = `<span class="lean-label">Partisan lean:&nbsp;</span>`;
+    lean += `<span class="lean-cyan">Cyan ${cyanWins}</span>`;
+    lean += `&nbsp;&nbsp;`;
+    lean += `<span class="lean-green">Green ${greenWins}</span>`;
+    if (pending > 0)
+      lean += `&nbsp;&nbsp;<span class="lean-pending">(${pending} district${pending !== 1 ? 's' : ''} incomplete)</span>`;
+    document.getElementById('lean-row').innerHTML = lean;
+
+    document.getElementById('puzzle-goal').textContent = PUZZLES[currentPuzzle].goal;
+
+    const broken = results
+      .map((r, i) => [r, i + 1])
+      .filter(([r]) => r.size > 0 && !r.contiguous)
+      .map(([, d]) => `District ${d}`);
+    document.getElementById('warning-text').textContent =
+      broken.length ? `Not contiguous: ${broken.join(', ')}` : '';
+
+    const puzzle      = PUZZLES[currentPuzzle];
+    const allAssigned = assignments.every(a => a !== 0);
+    const allValid    = results.every(r => r.contiguous);
+    const solved      = allAssigned && allValid
+                     && cyanWins  === puzzle.target.cyan
+                     && greenWins === puzzle.target.green;
+
+    const banner = document.getElementById('success-banner');
+    banner.style.display = solved ? 'block' : 'none';
+    if (solved)
+      banner.textContent = `Puzzle solved! You drew a ${puzzle.name} map.`;
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+
+  render();
+</script>
+</body>
+</html>
