@@ -113,3 +113,8 @@ On the puzzle page:
 * If I follow those instructions to remove it, the home page loses all formatting.
 * How do I remove this from the default layout and retain the formatting on the home page?
   I want to continue to use the 'primer' theme, but just remove the "footer" from the default layout.
+
+## Resources
+
+* https://blog.jakelee.co.uk/removing-github-pages-improve-this-page/
+* https://www.jekylltemplates.com/theme/pages-themes-primer/
