@@ -35,7 +35,6 @@ What else should we include in the implementation?
   - Show the party split of the blocks assigned to the district, e.g., 5-0, 4-1, 3-2, etc.
 
 * Change "Hello, World!" to TODO.
-* Remove the "This site is open source ..." from the site's footer.
 
 ## More Revisions
 
@@ -47,3 +46,53 @@ What else should we include in the implementation?
 * Make the "Blocks" heading "Assigned", to clarify that it shows the number of blocks assigned to the district.
 * Makes the "Split (B-O)" two separate columns "#O" (for the number of orange blocks) and "#G" (for the number of green blocks).
 * Call "Partisan Lean" at the bottom "Partisan Split" instead.
+
+## Clean Up
+
+On the home page:
+* Remove the "This site is open source ..." from the site's footer.
+* Change the home page title color to black.
+* Change "TODO" on the home page to "Welcome to the Redistricting Workshop website!"
+
+On the puzzle page:
+* Swap orange and green for parties, i.e. 15 green and 10 orange. 
+  Use the same voter layout.
+* Change the dropdown text to reflect this change.
+* Replace the text after the title with this (no blockquotes, just regular text):
+
+> What is gerrymandering? How does the *mechanism* of single-member districts (SMD) enable it?
+>
+> This applet allows you to explore these questions by drawing 3 maps for a toy state.
+> The state has 25 voters, each in their own block.
+> There are 15 who vote Green (G) and 10 who vote Orange (O). 
+>
+> When you draw a map:
+> - A district is won by whichever party has a majority of voters, i.e., at least 3 of its 5 blocks.
+> - Districts must be contiguous: every block in a district must share an edge with at least one other block in the same district.
+> - The dot inside each block shows the voter's party (G or O). The background color shows which district it belongs to.
+> - Click a district row in the panel to select it, then click blocks on the map to assign them. 
+>   Clicking a block already in the active district removes it.
+>
+> There are 3 different outcomes in the Puzzle dropdown:
+> - 1 -- Proportional: 3 Green, 2 Orange
+> - 2 -- Green Gerrymander: 4 Green, 1 Orange
+> - 3 -- Orange Gerrymander: 2 Green, 3 Orange
+> Can you draw maps that achieve all three results?
+
+* Once the user has successfully drawn all 3 maps, go to a final page that shows a congratulatory message, e.g., 
+  "Congratulations! You've successfully drawn maps for all three scenarios!" along with the following text:
+
+> Single-member districts (SMD) distort how votes get translated into seats.
+> That is an inherent property of the mechanism.
+> The same *political geography* yields different outcomes, depending on how the lines are drawn.
+>
+> A gerrymander is not about crazy district shapes.
+> Gerrymandering is grouping voters for political advantage.
+> The two main techniques are "packing" -- concentrating one party's voters into a district where they win by a large margin, 
+> wasting their surplus votes -- and "cracking" —- splitting a party's voters across multiple districts where they are always 
+> in the minority.
+>
+> Beware "neutral" criteria, e.g., compact districts aren't always fair due to the urban/rural sort.
+> See [Compact Districts Aren't Fair](https://medium.com/dra-2020/compact-districts-arent-fair-7c17c2ff5d7e).
+>
+> Racial gerrymandering is illegal, but partisan gerrymandering is not.
