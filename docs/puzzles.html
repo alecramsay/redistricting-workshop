@@ -211,15 +211,61 @@
       color: #888;
     }
 
-    .success-banner {
+    /* Modal popup */
+
+    .modal-overlay {
       display: none;
-      padding: 12px 16px;
-      background: #DCFCE7;
-      border: 1px solid #86EFAC;
-      border-radius: 6px;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 8px;
+      padding: 24px 28px;
+      max-width: 380px;
+      width: calc(100% - 48px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-msg {
       font-weight: 600;
+      font-size: 1rem;
       color: #166534;
-      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .modal-close {
+      font-size: 0.875rem;
+      padding: 6px 14px;
+      border: 1px solid #BBB;
+      border-radius: 4px;
+      background: #FFF;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      background: #EEE;
+    }
+
+    .takeaways-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 0.875rem;
+      color: #0070C0;
+      text-decoration: none;
+    }
+
+    .takeaways-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -274,13 +320,7 @@
           <th>Assigned</th>
           <th>#G</th>
           <th>#O</th>
-          <th title="Contiguous">
-            <svg width="20" height="14" viewBox="0 0 20 14" aria-label="Contiguous">
-              <circle cx="4" cy="7" r="3" stroke="#666" stroke-width="1.5" fill="none" />
-              <line x1="7" y1="7" x2="13" y2="7" stroke="#666" stroke-width="1.5" />
-              <circle cx="16" cy="7" r="3" stroke="#666" stroke-width="1.5" fill="none" />
-            </svg>
-          </th>
+          <th title="Contiguous">⬡⬡</th>
         </tr>
       </thead>
       <tbody id="district-tbody"></tbody>
@@ -289,7 +329,15 @@
   </div>
 
   <div class="status-row" id="split-row"></div>
-  <div class="success-banner" id="success-banner"></div>
+
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-msg" id="modal-msg"></div>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <a class="takeaways-link" href="completion.html">Takeaways &#8594;</a>
 
   <script>
     // ── Colors: edit these to experiment ───────────────────────────────────────
@@ -614,11 +662,8 @@
         && greenWins === puzzle.target.C
         && orangeWins === puzzle.target.G;
 
-      const banner = document.getElementById('success-banner');
       if (solved)
       {
-        banner.style.display = 'block';
-
         const solvedSet = getSolvedSet();
         if (!solvedSet.has(currentPuzzle))
         {
@@ -626,17 +671,37 @@
           localStorage.setItem(STORAGE_KEY, JSON.stringify([...solvedSet]));
           if (solvedSet.size === PUZZLES.length)
           {
-            banner.textContent = 'All 3 puzzles solved! Taking you to the final page\u2026';
-            setTimeout(() => {window.location.href = 'completion.html';}, 1500);
-            return;
+            openModal('All 3 puzzles solved! See the takeaways below.');
+          } else
+          {
+            openModal(`Puzzle solved! You drew a ${puzzle.name} map.`);
           }
         }
-        banner.textContent = `Puzzle solved! You drew a ${puzzle.name} map.`;
-      } else
-      {
-        banner.style.display = 'none';
       }
     }
+
+    // ── Modal ──────────────────────────────────────────────────────────────────
+
+    function openModal(msg)
+    {
+      document.getElementById('modal-msg').textContent = msg;
+      document.getElementById('modal-overlay').classList.add('open');
+    }
+
+    function closeModal()
+    {
+      document.getElementById('modal-overlay').classList.remove('open');
+    }
+
+    document.getElementById('modal-overlay').addEventListener('click', function (e)
+    {
+      if (e.target === this) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e)
+    {
+      if (e.key === 'Escape') closeModal();
+    });
 
     // ── Init ───────────────────────────────────────────────────────────────────
 

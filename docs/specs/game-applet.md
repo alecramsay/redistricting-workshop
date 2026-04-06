@@ -99,6 +99,7 @@ On the puzzle page:
 
 ## Tweaks
 
+* Remove the "This site is open source ..." from the site's footer.
 * Use two ASCII hexagon characters as the "contiguous" column header:
   https://www.alt-codes.net/hexagon-symbols
 * Instead of automatically (and only) going to the page with the takeaways after the user has successfully drawn all 3 maps,
