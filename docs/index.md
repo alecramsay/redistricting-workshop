@@ -3,7 +3,8 @@ layout: default
 title: Home
 ---
 
-What is gerrymandering? 
-[Redistricting Puzzles](puzzles.html)
+Welcome to the Redistricting Workshop website!
 
-?
+- [Lessons](lessons/)
+- [Tutorials](tutorials/)
+- [Guests](guests/)
