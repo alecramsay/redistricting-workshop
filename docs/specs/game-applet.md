@@ -105,3 +105,11 @@ On the puzzle page:
 * Instead of automatically (and only) going to the page with the takeaways after the user has successfully drawn all 3 maps,
   put a link to takeaways at the bottom of the puzzle page.
 * Make the congratulatory messsage be a pop up. 
+
+## Footer 
+
+* The "footer" is actually specified in the default layout for the 'primer' theme:
+  https://blog.jakelee.co.uk/removing-github-pages-improve-this-page/
+* If I follow those instructions to remove it, the home page loses all formatting.
+* How do I remove this from the default layout and retain the formatting on the home page?
+  I want to continue to use the 'primer' theme, but just remove the "footer" from the default layout.
