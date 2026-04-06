@@ -96,3 +96,15 @@ On the puzzle page:
 > See [Compact Districts Aren't Fair](https://medium.com/dra-2020/compact-districts-arent-fair-7c17c2ff5d7e).
 >
 > Racial gerrymandering is illegal, but partisan gerrymandering is not.
+
+## Tweaks
+
+* Use two ASCII hexagon characters as the "contiguous" column header:
+  https://www.alt-codes.net/hexagon-symbols
+* Make a gerrymandering page.
+* Move the "What is gerrymandering? ..." text and puzzle link from the home page to the gerrymandering page.
+  Put a link to the gerrymandering page on the home page. The link text should be "What is gerrymandering?"
+* On the gerrymangering page, put the link to the puzzle page on a new line.
+* Instead of automatically (and only) going to the page with the takeaways after the user has successfully drawn all 3 maps,
+  put a link to takeaways at the bottom of the puzzle page.
+* Make the congratulatory messsage be a pop up. 
