@@ -3,6 +3,6 @@ layout: default
 title: Home
 ---
 
-TODO
+Welcome to the Redistricting Workshop website!
 
 [Redistricting Puzzles](puzzles.html)
