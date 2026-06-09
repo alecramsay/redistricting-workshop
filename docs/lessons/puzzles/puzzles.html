@@ -631,10 +631,13 @@
     {
       const svg = document.getElementById('grid');
       svg.innerHTML = '';
-      const PAD = 2;  // half of the 4px border stroke so edges aren't clipped
+      const PAD = 2;  // half of the 4px border stroke, so edge strokes aren't clipped
       svg.setAttribute('width', COLS * CELL_SIZE + PAD * 2);
       svg.setAttribute('height', ROWS * CELL_SIZE + PAD * 2);
-      svg.setAttribute('viewBox', `-${PAD} -${PAD} ${COLS * CELL_SIZE + PAD * 2} ${ROWS * CELL_SIZE + PAD * 2}`);
+      svg.removeAttribute('viewBox');
+      const g = document.createElementNS(SVG_NS, 'g');
+      g.setAttribute('transform', `translate(${PAD}, ${PAD})`);
+      svg.appendChild(g);
 
       for (let r = 0; r < ROWS; r++)
       {
@@ -675,7 +678,7 @@
             rect.setAttribute('stroke-width', cur > 0 ? '1.5' : '0.5');
           });
           rect.addEventListener('click', () => handleCellClick(r, c));
-          svg.appendChild(rect);
+          g.appendChild(rect);
 
           // Voter dot: solid party-colored circle (reduced opacity), white letter.
           const dot = document.createElementNS(SVG_NS, 'circle');
@@ -685,7 +688,7 @@
           dot.setAttribute('fill', PARTY_COLOR[PG[r][c]]);
           dot.setAttribute('fill-opacity', '0.72');
           dot.style.pointerEvents = 'none';
-          svg.appendChild(dot);
+          g.appendChild(dot);
 
           const label = document.createElementNS(SVG_NS, 'text');
           label.setAttribute('x', cx);
@@ -698,12 +701,12 @@
           label.setAttribute('font-family', 'sans-serif');
           label.style.pointerEvents = 'none';
           label.textContent = PG[r][c];
-          svg.appendChild(label);
+          g.appendChild(label);
         }
       }
 
-      renderDistrictBorders(svg);
-      renderStateBorder(svg);
+      renderDistrictBorders(g);
+      renderStateBorder(g);
     }
 
     function renderStateBorder(svg)
