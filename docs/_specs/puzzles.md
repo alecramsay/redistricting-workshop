@@ -40,3 +40,13 @@ This is the new set of puzzles using the PG in `pg.txt`:
     as uncompetitive (lopsided) as possible.
 -   In the packing puzzle, the user should try to create 1 R district and 3 B districts with the 3 B districts as safe as possible.
 -   In the cracking puzzle, the user should try to create 3 R districts and 1 B district with the 3 R districts as safe as possible.
+
+## Step 4: Clean Up
+
+-   Draw a thicker-than-between-cells black border around each district.
+-   Fill the voter circles with the colors (red, blue) and use white text for the 'R' and 'B' labels.
+-   If 3 districts have been drawn completely, automatically draw the 4th district as the remaining cells.
+-   Add a Map Colors / Partisan Lean toggle -- partisan lean is the current red/blue coloring; map colors should use the district
+    colors.
+
+-   The `Home` button on ... https://alecramsay.github.io/redistricting-workshop/lessons/ instead of https://alecramsay.github.io/redistricting-workshop/.

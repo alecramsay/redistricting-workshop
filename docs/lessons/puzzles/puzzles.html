@@ -295,21 +295,21 @@
   <h1>Redistricting Puzzles</h1>
 
   <section class="description">
-    <p>This applet lets you explore how district lines translate votes into seats.
+    <p>This applet lets you explore how district lines control the translation of votes into seats.
       You'll draw 4 maps for a simple state with 64 voters — 32 who vote Red (R) and 32 who vote Blue (B) —
       arranged in an 8&times;8 grid.</p>
     <p>When you draw a map:</p>
     <ul>
       <li>Each district must have exactly 16 voters.</li>
-      <li>A district is won by R if it has 9 or more R voters; by B if it has 9 or more B voters.
-          A district with exactly 8 R and 8 B voters is a tie.</li>
-      <li>Districts must be contiguous: every cell in a district must share an edge with at least one
-          other cell in the same district.</li>
-      <li>The letter inside each cell shows the voter's party (R or B).
-          The background color shows who is winning the district:
-          red for R, blue for B, yellow for a tie.</li>
+      <li>A district is won by Red if it has 9 or more R voters; by Blue if it has 9 or more B voters.
+        A district with exactly 8 R and 8 B voters is a tie, i.e., perfectly competitive.</li>
+      <li>Districts must be contiguous: every voter in a district must share an "fence" with at least one
+        neighboring voter in the same district.</li>
+      <li>The letter inside each square shows the voter's party (Red or Blue).
+        The background color shows who is winning the district:
+        red for R, blue for B, yellow for a tie.</li>
       <li>Click a district row in the panel to select it, then click cells on the map to assign them.
-          Clicking a cell already in the active district removes it.</li>
+        Clicking a cell already in the active district removes it.</li>
     </ul>
     <p>There are 4 puzzles in the dropdown:</p>
     <ul>
@@ -368,14 +368,14 @@
     // R = Red, B = Blue. 32 R and 32 B.
 
     const PG = [
-      ['B','B','R','R','R','B','B','B'],
-      ['B','B','R','R','R','R','B','B'],
-      ['B','R','R','B','B','R','R','R'],
-      ['R','R','B','B','B','B','R','R'],
-      ['R','R','B','B','B','B','R','R'],
-      ['R','R','R','B','B','R','R','B'],
-      ['B','B','R','R','R','R','B','B'],
-      ['B','B','B','R','R','R','B','B'],
+      ['B', 'B', 'R', 'R', 'R', 'B', 'B', 'B'],
+      ['B', 'B', 'R', 'R', 'R', 'R', 'B', 'B'],
+      ['B', 'R', 'R', 'B', 'B', 'R', 'R', 'R'],
+      ['R', 'R', 'B', 'B', 'B', 'B', 'R', 'R'],
+      ['R', 'R', 'B', 'B', 'B', 'B', 'R', 'R'],
+      ['R', 'R', 'R', 'B', 'B', 'R', 'R', 'B'],
+      ['B', 'B', 'R', 'R', 'R', 'R', 'B', 'B'],
+      ['B', 'B', 'B', 'R', 'R', 'R', 'B', 'B'],
     ];
 
     // ── Constants ───────────────────────────────────────────────────────────────
@@ -390,7 +390,7 @@
     // ── Colors ──────────────────────────────────────────────────────────────────
 
     // Voter dot: white circle, colored stroke and letter.
-    const PARTY_COLOR = { R: '#991B1B', B: '#1E3A8A' };
+    const PARTY_COLOR = {R: '#991B1B', B: '#1E3A8A'};
 
     // District identification: one border/swatch color per district.
     const DISTRICT_BORDER = ['#7C3AED', '#0D9488', '#D97706', '#DB2777'];
@@ -696,7 +696,7 @@
     {
       const rWins = results.filter(r => r.winner === 'R' && r.contiguous).length;
       const bWins = results.filter(r => r.winner === 'B' && r.contiguous).length;
-      const ties  = results.filter(r => r.winner === 'T' && r.contiguous).length;
+      const ties = results.filter(r => r.winner === 'T' && r.contiguous).length;
       const incomplete = N_DISTRICTS - rWins - bWins - ties;
 
       let split = '<span class="split-label">District results:&nbsp;</span>';
@@ -718,7 +718,7 @@
       const solved = allAssigned && allComplete && allContiguous
         && rWins === puzzle.target.R
         && bWins === puzzle.target.B
-        && ties  === puzzle.target.T;
+        && ties === puzzle.target.T;
 
       if (solved)
       {
