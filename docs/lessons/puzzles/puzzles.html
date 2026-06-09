@@ -298,10 +298,6 @@
       background: #EEE;
     }
 
-    #grid {
-      border: 4px solid #000;
-    }
-
     .takeaways-link {
       display: inline-block;
       margin-top: 24px;
@@ -635,8 +631,10 @@
     {
       const svg = document.getElementById('grid');
       svg.innerHTML = '';
-      svg.setAttribute('width', COLS * CELL_SIZE);
-      svg.setAttribute('height', ROWS * CELL_SIZE);
+      const PAD = 2;  // half of the 4px border stroke so edges aren't clipped
+      svg.setAttribute('width', COLS * CELL_SIZE + PAD * 2);
+      svg.setAttribute('height', ROWS * CELL_SIZE + PAD * 2);
+      svg.setAttribute('viewBox', `-${PAD} -${PAD} ${COLS * CELL_SIZE + PAD * 2} ${ROWS * CELL_SIZE + PAD * 2}`);
 
       for (let r = 0; r < ROWS; r++)
       {
@@ -705,6 +703,22 @@
       }
 
       renderDistrictBorders(svg);
+      renderStateBorder(svg);
+    }
+
+    function renderStateBorder(svg)
+    {
+      const rect = document.createElementNS(SVG_NS, 'rect');
+      rect.setAttribute('x', 0);
+      rect.setAttribute('y', 0);
+      rect.setAttribute('width', COLS * CELL_SIZE);
+      rect.setAttribute('height', ROWS * CELL_SIZE);
+      rect.setAttribute('fill', 'none');
+      rect.setAttribute('stroke', '#000');
+      rect.setAttribute('stroke-width', '4');
+      rect.setAttribute('stroke-linejoin', 'miter');
+      rect.style.pointerEvents = 'none';
+      svg.appendChild(rect);
     }
 
     function renderDistrictBorders(svg)
