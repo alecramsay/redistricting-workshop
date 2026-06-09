@@ -44,9 +44,15 @@ This is the new set of puzzles using the PG in `pg.txt`:
 ## Step 4: Clean Up
 
 -   Draw a thicker-than-between-cells black border around each district.
--   Fill the voter circles with the colors (red, blue) and use white text for the 'R' and 'B' labels.
+-   Fill the voter circles with the colors (red, blue) and use white reversed text for the 'R' and 'B' labels in them.
 -   If 3 districts have been drawn completely, automatically draw the 4th district as the remaining cells.
 -   Add a Map Colors / Partisan Lean toggle -- partisan lean is the current red/blue coloring; map colors should use the district
     colors.
+-   The `Home` buttons on the puzzle and takeaway pages go to https://alecramsay.github.io/redistricting-workshop/lessons/ instead of https://alecramsay.github.io/redistricting-workshop/.
 
--   The `Home` button on ... https://alecramsay.github.io/redistricting-workshop/lessons/ instead of https://alecramsay.github.io/redistricting-workshop/.
+As for nudges:
+-   Competitive puzzle: With this PG, one can draw 4 8-8 perfectly competitive districts.
+-   Sweetheart puzzle: With this PG, one can draw 2 11-5 Red districts and 2 11-5 Blue districts.
+-   Packing puzzle: With this PG, one can draw 3 11-5 Blue districts and 1 16-0 Red district.
+-   Cracking puzzle: With this PG, one can draw 3 9-7 Red districts and 1 11-5 Blue district.
+-   Note: a 9-7 Red district has 9 Red voters and 7 Blue voters; an 11-5 Blue district has 11 Blue voters and 5 Red voters.
