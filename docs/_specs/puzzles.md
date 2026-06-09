@@ -56,3 +56,12 @@ As for nudges:
 -   Packing puzzle: With this PG, one can draw 3 11-5 Blue districts and 1 16-0 Red district.
 -   Cracking puzzle: With this PG, one can draw 3 9-7 Red districts and 1 11-5 Blue district.
 -   Note: a 9-7 Red district has 9 Red voters and 7 Blue voters; an 11-5 Blue district has 11 Blue voters and 5 Red voters.
+
+## Step 5: More Clean Up
+
+-   Add exterior district borders.
+-   Make district borders thicker.
+-   Make voter circles less intense.
+-   When coloring districts by partisan lean, change the color dynamically based on how many Red and Blue voters in the district
+    after each assignment.
+-   The Home buttons issue noted above is not fixed yet.

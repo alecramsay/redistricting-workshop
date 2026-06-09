@@ -314,7 +314,7 @@
 
 <body>
 
-  <nav><a class="exit-link" href="../">&#8592; Home</a></nav>
+  <nav><a class="exit-link" href="../../">&#8592; Home</a></nav>
   <h1>Redistricting Puzzles</h1>
 
   <section class="description">
@@ -542,15 +542,27 @@
       return {size, R, B, contiguous, winner};
     }
 
+    function partisanFillColor(size, R, B)
+    {
+      if (size === 0) return WINNER_FILL.U;
+      if (R === B)
+      {
+        // Tied: yellow, deepening as more cells are assigned.
+        const opacity = (0.15 + (size / CELLS_PER_DISTRICT) * 0.27).toFixed(2);
+        return `rgba(234,179,8,${opacity})`;
+      }
+      // Lead-proportional opacity: faint at 1-cell edge, full at 16-0.
+      const lead = Math.abs(R - B);
+      const opacity = (0.12 + (lead / CELLS_PER_DISTRICT) * 0.33).toFixed(2);
+      return R > B ? `rgba(239,68,68,${opacity})` : `rgba(59,130,246,${opacity})`;
+    }
+
     function cellFillColor(d, results)
     {
       if (d === 0) return WINNER_FILL.U;
       if (!showPartisanLean) return DISTRICT_MAP_FILL[d - 1];
       const res = results[d - 1];
-      if (res.winner === 'R') return WINNER_FILL.R;
-      if (res.winner === 'B') return WINNER_FILL.B;
-      if (res.winner === 'T') return WINNER_FILL.T;
-      return WINNER_FILL.I;
+      return partisanFillColor(res.size, res.R, res.B);
     }
 
     // ── Actions ─────────────────────────────────────────────────────────────────
@@ -663,12 +675,13 @@
           rect.addEventListener('click', () => handleCellClick(r, c));
           svg.appendChild(rect);
 
-          // Voter dot: solid party-colored circle, white letter.
+          // Voter dot: solid party-colored circle (reduced opacity), white letter.
           const dot = document.createElementNS(SVG_NS, 'circle');
           dot.setAttribute('cx', cx);
           dot.setAttribute('cy', cy);
           dot.setAttribute('r', DOT_R);
           dot.setAttribute('fill', PARTY_COLOR[PG[r][c]]);
+          dot.setAttribute('fill-opacity', '0.72');
           dot.style.pointerEvents = 'none';
           svg.appendChild(dot);
 
@@ -729,7 +742,7 @@
               line.setAttribute('x2', x2);
               line.setAttribute('y2', y2);
               line.setAttribute('stroke', '#000');
-              line.setAttribute('stroke-width', '3');
+              line.setAttribute('stroke-width', '4');
               line.setAttribute('stroke-linecap', 'square');
               line.style.pointerEvents = 'none';
               svg.appendChild(line);
