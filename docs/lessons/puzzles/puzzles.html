@@ -659,26 +659,20 @@
           rect.setAttribute('width', CELL_SIZE - 1);
           rect.setAttribute('height', CELL_SIZE - 1);
           rect.setAttribute('fill', cellFillColor(d, results));
-          rect.setAttribute('stroke', d > 0 ? DISTRICT_BORDER[d - 1] : '#C0C0C0');
-          rect.setAttribute('stroke-width', d > 0 ? '1.5' : '0.5');
+          rect.setAttribute('stroke', '#C0C0C0');
+          rect.setAttribute('stroke-width', '0.5');
           rect.style.cursor = 'pointer';
 
           rect.addEventListener('mouseenter', () =>
           {
             const cur = assignments[i];
             if (cur !== currentDistrict)
-            {
               rect.setAttribute('fill', cellFillColor(currentDistrict, results));
-              rect.setAttribute('stroke', DISTRICT_BORDER[currentDistrict - 1]);
-              rect.setAttribute('stroke-width', '1.5');
-            }
           });
           rect.addEventListener('mouseleave', () =>
           {
             const cur = assignments[i];
             rect.setAttribute('fill', cellFillColor(cur, results));
-            rect.setAttribute('stroke', cur > 0 ? DISTRICT_BORDER[cur - 1] : '#C0C0C0');
-            rect.setAttribute('stroke-width', cur > 0 ? '1.5' : '0.5');
           });
           rect.addEventListener('click', () => handleCellClick(r, c));
           g.appendChild(rect);
