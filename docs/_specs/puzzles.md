@@ -76,3 +76,5 @@ District | Hex | Color
 2 | #1a068c | deep navy/indigo
 3 | #cf4a75 | raspberry pink
 4 | #f99740 | orange
+
+- Keep the borders between cells the original thickness and color, i.e., don't change it as cells are assigned to districts.
