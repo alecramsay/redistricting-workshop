@@ -424,14 +424,14 @@
     const PARTY_COLOR = {R: '#DC2626', B: '#2563EB'};
 
     // District identification: one border/swatch color per district.
-    const DISTRICT_BORDER = ['#7C3AED', '#0D9488', '#D97706', '#DB2777'];
+    const DISTRICT_BORDER = ['#f2f822', '#1a068c', '#cf4a75', '#f99740'];
 
     // District fill in Map Colors mode.
     const DISTRICT_MAP_FILL = [
-      'rgba(124,58,237,0.35)',
-      'rgba(13,148,136,0.35)',
-      'rgba(217,119,6,0.35)',
-      'rgba(219,39,119,0.35)',
+      'rgba(242,248,34,0.50)',
+      'rgba(26,6,140,0.50)',
+      'rgba(207,74,117,0.50)',
+      'rgba(249,151,64,0.50)',
     ];
 
     // Cell background fill in Partisan Lean mode.
@@ -549,12 +549,12 @@
       if (R === B)
       {
         // Tied: yellow, deepening as more cells are assigned.
-        const opacity = (0.15 + (size / CELLS_PER_DISTRICT) * 0.27).toFixed(2);
+        const opacity = (0.25 + (size / CELLS_PER_DISTRICT) * 0.25).toFixed(2);
         return `rgba(234,179,8,${opacity})`;
       }
       // Lead-proportional opacity: faint at 1-cell edge, full at 16-0.
       const lead = Math.abs(R - B);
-      const opacity = (0.12 + (lead / CELLS_PER_DISTRICT) * 0.33).toFixed(2);
+      const opacity = (0.20 + (lead / CELLS_PER_DISTRICT) * 0.30).toFixed(2);
       return R > B ? `rgba(239,68,68,${opacity})` : `rgba(59,130,246,${opacity})`;
     }
 
