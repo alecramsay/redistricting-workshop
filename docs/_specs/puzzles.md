@@ -78,3 +78,4 @@ District | Hex | Color
 4 | #f99740 | orange
 
 - Keep the borders between cells the original thickness and color, i.e., don't change it as cells are assigned to districts.
+- The borders need to be darker, so they show up over the district coloring. Make them black.
