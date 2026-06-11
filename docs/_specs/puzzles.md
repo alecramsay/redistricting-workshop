@@ -65,3 +65,14 @@ As for nudges:
 -   When coloring districts by partisan lean, change the color dynamically based on how many Red and Blue voters in the district
     after each assignment.
 -   The Home buttons issue noted above is not fixed yet.
+
+## Step 6: Continued Tweaking
+
+- Make the background cell fill colors darker/less opaque (50%?)--they're so faint they're somewhat hard to make out.
+- Use the map colors below for the 4 districts.
+
+District | Hex | Color
+1 | #f2f822 | bright yellow
+2 | #1a068c | deep navy/indigo
+3 | #cf4a75 | raspberry pink
+4 | #f99740 | orange
