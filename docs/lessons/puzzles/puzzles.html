@@ -323,15 +323,16 @@
       arranged in an 8&times;8 grid.</p>
     <p>When you draw a map:</p>
     <ul>
-      <li>Each district must have exactly 16 voters.</li>
-      <li>A district is won by Red if it has 9 or more Red voters; by Blue if it has 9 or more Blue voters.
-        A district with exactly 8 Red and 8 Blue voters is a tie, i.e., perfectly competitive.</li>
+      <li>Each district must have exactly 16 voters ("one person, one vote").</li>
+      <li>A district will likely be won by Red if it has 9 or more Red voters; by Blue if it has 9 or more Blue voters.
+        A district with exactly 8 Red and 8 Blue voters is up for grabs, i.e., perfectly competitive.</li>
       <li>Districts must be contiguous: every voter in a district must share a "fence" with at least one
         neighboring voter in the same district.</li>
-      <li>The letter inside each square shows the voter's party (Red or Blue).</li>
+      <li>The letter inside each square shows the voter's preferred party (Red or Blue).</li>
       <li>
-        The default partisan lean view mode paints the background color to show who is winning the district:
-        red, blue, or yellow for a tie.
+        The default partisan lean view mode paints the background color of a district to show who is winning the
+        district:
+        Red or Blue (or yellow for a tie).
         The map color option shows the district colors instead.</li>
       <li>Click a district row in the panel to select it, then click voters on the map to assign them to that district.
         Clicking a voter already in the active district removes it from that district.</li>
@@ -455,31 +456,31 @@
       {
         name: 'proportional',
         goal: 'Goal: Draw 2 Red-leaning-but-competitive districts and 2 similar Blue-leaning districts.',
-        hint: 'Hint: With this political geography, 2 districts won 9–7 by Red and 2 districts won 9–7 by Blue are possible.',
+        hint: 'Hint: With this political geography, you can draw 2 9-7 Red-leaning and 2 9-7 Blue-leaning districts.',
         target: {R: 2, B: 2, T: 0},
       },
       {
         name: 'sweetheart',
         goal: 'Goal: Draw 2 safe Red districts and 2 safe Blue districts.',
-        hint: 'Hint: With this political geography, 2 lopsided Red districts (11–5) and 2 lopsided Blue districts (11–5) are possible.',
+        hint: 'Hint: With this political geography, you can draw 2 lopsided Red districts (11–5) and 2 lopsided Blue districts (11–5).',
         target: {R: 2, B: 2, T: 0},
       },
       {
         name: 'packing',
         goal: 'Goal: Pack Red voters into 1 district; Blue wins the other 3.',
-        hint: 'Hint: With this political geography, you can pack 16 Red voters into 1 district while Blue wins the other 3 safely (11–5).',
+        hint: 'Hint: With this political geography, you can pack 16 Red voters into 1 district giving Blue 3 safe districts with 10-11 voters.',
         target: {R: 1, B: 3, T: 0},
       },
       {
         name: 'cracking',
         goal: 'Goal: Crack Blue voters across 3 Red-winning districts; Blue keeps only 1.',
-        hint: 'Hint: With this political geography, 3 Red districts (9–7) and 1 Blue district (11–5) are possible.',
+        hint: 'Hint: With this political geography, you can draw 3 9–7 Red-leaning districts and 1 11–5 Blue district.',
         target: {R: 3, B: 1, T: 0},
       },
       {
         name: 'competitive',
         goal: 'Goal: Draw 4 districts that have exactly equal numbers of Red and Blue voters.',
-        hint: 'Hint: With this political geography, 4 perfectly competitive (8–8) districts are possible.',
+        hint: 'Hint: With this political geography, you can draw 4 perfectly competitive (8–8) districts.',
         target: {R: 0, B: 0, T: 4},
       },
     ];
