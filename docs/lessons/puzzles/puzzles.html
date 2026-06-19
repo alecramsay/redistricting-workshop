@@ -890,7 +890,7 @@
           solvedSet.add(currentPuzzle);
           localStorage.setItem(STORAGE_KEY, JSON.stringify([...solvedSet]));
           const msg = solvedSet.size === PUZZLES.length
-            ? ‘Congratulations! You’ve solved all five puzzles!’
+            ? "Congratulations! You’ve solved all five puzzles!"
             : `Puzzle solved! You drew a ${puzzle.name} map.`;
           openModal(msg);
         }
