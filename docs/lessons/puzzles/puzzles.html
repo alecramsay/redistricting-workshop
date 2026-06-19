@@ -336,12 +336,13 @@
       <li>Click a district row in the panel to select it, then click voters on the map to assign them to that district.
         Clicking a voter already in the active district removes it from that district.</li>
     </ul>
-    <p>There are 4 puzzles in the dropdown:</p>
+    <p>There are 5 puzzles in the dropdown:</p>
     <ul>
-      <li><strong>Competitive</strong> &#8212; Draw 4 districts that are each exactly tied.</li>
+      <li><strong>Proportional</strong> &#8212; Draw 2 close Red districts and 2 close Blue districts, each won 9–7.</li>
       <li><strong>Sweetheart</strong> &#8212; Draw 2 safe Red districts and 2 safe Blue districts.</li>
       <li><strong>Packing</strong> &#8212; Pack Red voters into 1 district, so Blue wins the other 3.</li>
       <li><strong>Cracking</strong> &#8212; Crack Blue voters across 3 Red-winning districts, so Blue only wins 1.</li>
+      <li><strong>Competitive</strong> &#8212; Draw 4 districts that are each exactly tied.</li>
     </ul>
   </section>
 
@@ -350,10 +351,11 @@
   <div class="puzzle-controls">
     <label for="puzzle-select">Puzzle:</label>
     <select id="puzzle-select" onchange="selectPuzzle(+this.value)">
-      <option value="0">1 &#8212; Competitive</option>
+      <option value="0">1 &#8212; Proportional</option>
       <option value="1">2 &#8212; Sweetheart</option>
       <option value="2">3 &#8212; Packing (R into 1)</option>
       <option value="3">4 &#8212; Cracking (B across 3)</option>
+      <option value="4">5 &#8212; Competitive</option>
     </select>
     <button class="btn-reset" onclick="resetPuzzle()">Reset</button>
   </div>
@@ -449,10 +451,10 @@
 
     const PUZZLES = [
       {
-        name: 'competitive',
-        goal: 'Goal: Draw 4 districts that are each exactly tied — 8 Red and 8 Blue voters per district.',
-        hint: 'Hint: With this political geography, 4 perfectly competitive (8–8) districts are possible.',
-        target: {R: 0, B: 0, T: 4},
+        name: 'proportional',
+        goal: 'Goal: Draw 2 competitive Red districts and 2 competitive Blue districts — each won 9–7.',
+        hint: 'Hint: With this political geography, 2 districts won 9–7 by Red and 2 districts won 9–7 by Blue are possible.',
+        target: {R: 2, B: 2, T: 0},
       },
       {
         name: 'sweetheart',
@@ -472,6 +474,12 @@
         hint: 'Hint: With this political geography, 3 Red districts (9–7) and 1 Blue district (11–5) are possible.',
         target: {R: 3, B: 1, T: 0},
       },
+      {
+        name: 'competitive',
+        goal: 'Goal: Draw 4 districts that are each exactly tied — 8 Red and 8 Blue voters per district.',
+        hint: 'Hint: With this political geography, 4 perfectly competitive (8–8) districts are possible.',
+        target: {R: 0, B: 0, T: 4},
+      },
     ];
 
     // ── State ───────────────────────────────────────────────────────────────────
@@ -485,7 +493,7 @@
 
     // ── Completion tracking ──────────────────────────────────────────────────────
 
-    const STORAGE_KEY = 'redistricting_v2_solved';
+    const STORAGE_KEY = 'redistricting_v3_solved';
 
     function getSolvedSet()
     {
@@ -659,7 +667,7 @@
           rect.setAttribute('width', CELL_SIZE - 1);
           rect.setAttribute('height', CELL_SIZE - 1);
           rect.setAttribute('fill', cellFillColor(d, results));
-          rect.setAttribute('stroke', '#000');
+          rect.setAttribute('stroke', 'rgba(0,0,0,0.5)');
           rect.setAttribute('stroke-width', '1');
           rect.style.cursor = 'pointer';
 
@@ -882,7 +890,7 @@
           solvedSet.add(currentPuzzle);
           localStorage.setItem(STORAGE_KEY, JSON.stringify([...solvedSet]));
           const msg = solvedSet.size === PUZZLES.length
-            ? 'Congratulations! You’ve solved all four puzzles!'
+            ? ‘Congratulations! You’ve solved all five puzzles!’
             : `Puzzle solved! You drew a ${puzzle.name} map.`;
           openModal(msg);
         }

@@ -79,3 +79,9 @@ District | Hex | Color
 
 - Keep the borders between cells the original thickness and color, i.e., don't change it as cells are assigned to districts.
 - The borders need to be darker, so they show up over the district coloring. Make them black.
+
+## Step 7: Add a Scenario
+
+- Add a "Proportional" scenario where the user is tasked to create 2 9-7 Red districts and 2 9-7 Blue districts. 
+- Make the order of the scenarios be Proportional, Sweetheart, Packing, Cracking, Competitive.
+- Reduce the opacity of the borders between cells to 50% so they don't overpower the district colors.
