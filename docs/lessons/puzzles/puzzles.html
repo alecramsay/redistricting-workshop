@@ -319,7 +319,7 @@
 
   <section class="description">
     <p>This applet lets you explore how district lines control the translation of votes into seats.
-      You'll draw 4 maps for a simple state with 64 voters — 32 who vote Red (R) and 32 who vote Blue (B) —
+      You'll draw 5 maps for a simple state with 64 voters — 32 who vote Red (R) and 32 who vote Blue (B) —
       arranged in an 8&times;8 grid.</p>
     <p>When you draw a map:</p>
     <ul>
@@ -338,11 +338,13 @@
     </ul>
     <p>There are 5 puzzles in the dropdown:</p>
     <ul>
-      <li><strong>Proportional</strong> &#8212; Draw 2 close Red districts and 2 close Blue districts, each won 9–7.</li>
+      <li><strong>Proportional</strong> &#8212; Draw 2 Red-leaning-but-competitive districts and 2 similar
+        Blue-leaning districts.</li>
       <li><strong>Sweetheart</strong> &#8212; Draw 2 safe Red districts and 2 safe Blue districts.</li>
       <li><strong>Packing</strong> &#8212; Pack Red voters into 1 district, so Blue wins the other 3.</li>
       <li><strong>Cracking</strong> &#8212; Crack Blue voters across 3 Red-winning districts, so Blue only wins 1.</li>
-      <li><strong>Competitive</strong> &#8212; Draw 4 districts that are each exactly tied.</li>
+      <li><strong>Competitive</strong> &#8212; Draw 4 competitive districts.
+      </li>
     </ul>
   </section>
 
@@ -353,8 +355,8 @@
     <select id="puzzle-select" onchange="selectPuzzle(+this.value)">
       <option value="0">1 &#8212; Proportional</option>
       <option value="1">2 &#8212; Sweetheart</option>
-      <option value="2">3 &#8212; Packing (R into 1)</option>
-      <option value="3">4 &#8212; Cracking (B across 3)</option>
+      <option value="2">3 &#8212; Packing (Red into 1)</option>
+      <option value="3">4 &#8212; Cracking (Blue across 3)</option>
       <option value="4">5 &#8212; Competitive</option>
     </select>
     <button class="btn-reset" onclick="resetPuzzle()">Reset</button>
@@ -452,7 +454,7 @@
     const PUZZLES = [
       {
         name: 'proportional',
-        goal: 'Goal: Draw 2 competitive Red districts and 2 competitive Blue districts — each won 9–7.',
+        goal: 'Goal: Draw 2 Red-leaning-but-competitive districts and 2 similar Blue-leaning districts.',
         hint: 'Hint: With this political geography, 2 districts won 9–7 by Red and 2 districts won 9–7 by Blue are possible.',
         target: {R: 2, B: 2, T: 0},
       },
@@ -465,7 +467,7 @@
       {
         name: 'packing',
         goal: 'Goal: Pack Red voters into 1 district; Blue wins the other 3.',
-        hint: 'Hint: With this political geography, you can pack all 32 Red voters into 1 district (16–0) while Blue wins the other 3 safely (11–5).',
+        hint: 'Hint: With this political geography, you can pack 16 Red voters into 1 district while Blue wins the other 3 safely (11–5).',
         target: {R: 1, B: 3, T: 0},
       },
       {
@@ -476,7 +478,7 @@
       },
       {
         name: 'competitive',
-        goal: 'Goal: Draw 4 districts that are each exactly tied — 8 Red and 8 Blue voters per district.',
+        goal: 'Goal: Draw 4 districts that have exactly equal numbers of Red and Blue voters.',
         hint: 'Hint: With this political geography, 4 perfectly competitive (8–8) districts are possible.',
         target: {R: 0, B: 0, T: 4},
       },
