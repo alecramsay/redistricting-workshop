@@ -127,6 +127,7 @@
       flex-shrink: 0;
     }
 
+    .districts-col,
     .map-col {
       flex-shrink: 0;
     }
@@ -314,6 +315,7 @@
       <option value="4">5 &#8212; Competitive</option>
     </select>
     <button class="btn-reset" onclick="resetPuzzle()">Reset</button>
+    <button class="btn-reset" onclick="loadSolution()">Solution</button>
     <button class="btn-reset" onclick="saveMap()">Save</button>
     <button class="btn-reset" onclick="document.getElementById('load-input').click()">Load</button>
     <input type="file" id="load-input" accept="application/json,.json" style="display:none"
@@ -322,18 +324,19 @@
 
   <div class="view-controls">
     <span>View:</span>
+    <label><input type="radio" name="view-mode" value="map" checked onchange="setViewMode('map')"> Map Colors</label>
     <label><input type="radio" name="view-mode" value="lean" onchange="setViewMode('lean')"> Partisan
       Lean</label>
-    <label><input type="radio" name="view-mode" value="map" checked onchange="setViewMode('map')"> Map Colors</label>
   </div>
 
   <p class="puzzle-goal" id="puzzle-goal"></p>
   <p class="puzzle-hint" id="puzzle-hint"></p>
 
   <div class="game-area">
-    <div class="districts-box">
+    <div class="districts-col">
       <div class="section-label">Districts</div>
-      <table class="district-panel" id="district-panel">
+      <div class="districts-box">
+        <table class="district-panel" id="district-panel">
         <thead>
           <tr>
             <th colspan="2" class="left">District</th>
@@ -347,7 +350,8 @@
         </thead>
         <tbody id="district-tbody"></tbody>
       </table>
-      <div class="status-row" id="split-row"></div>
+        <div class="status-row" id="split-row"></div>
+      </div>
     </div>
     <div class="map-col">
       <div class="section-label">Map</div>
@@ -589,6 +593,22 @@
       render();
     }
 
+    async function loadSolution()
+    {
+      const hasWork = assignments.some(a => a !== 0);
+      if (hasWork && !confirm('Load the solution? This will replace your current map.')) return;
+      try
+      {
+        const name = PUZZLES[currentPuzzle].name;
+        const resp = await fetch(`solutions/${name}.json`, {cache: 'no-store'});
+        if (!resp.ok) throw new Error('fetch failed');
+        if (!applyAssignments(await resp.json())) throw new Error('invalid');
+      } catch
+      {
+        alert('Could not load the solution for this puzzle.');
+      }
+    }
+
     function resetDistrict(d)
     {
       for (let i = 0; i < assignments.length; i++)
@@ -599,9 +619,31 @@
 
     // ── Save / Load (voter→district assignments only) ─────────────────────────────
 
-    function saveMap()
+    async function saveMap()
     {
       const data = JSON.stringify({version: 1, assignments});
+
+      // Preferred: native save dialog (name + location). Chromium browsers only.
+      if (window.showSaveFilePicker)
+      {
+        try
+        {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: 'redistricting-map.json',
+            types: [{description: 'Redistricting map', accept: {'application/json': ['.json']}}],
+          });
+          const writable = await handle.createWritable();
+          await writable.write(data);
+          await writable.close();
+          return;
+        } catch (e)
+        {
+          if (e.name === 'AbortError') return;  // user cancelled the dialog
+          // any other failure: fall through to the download fallback
+        }
+      }
+
+      // Fallback: browser download (the filename is only a suggestion).
       const blob = new Blob([data], {type: 'application/json'});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -609,6 +651,21 @@
       a.download = 'redistricting-map.json';
       a.click();
       URL.revokeObjectURL(url);
+    }
+
+    // Validate and apply a loaded map. Accepts a bare array or a {assignments}
+    // object. Returns true on success, false if the data isn't a valid map.
+    function applyAssignments(raw)
+    {
+      const a = Array.isArray(raw) ? raw : (raw && raw.assignments);
+      const valid = Array.isArray(a)
+        && a.length === ROWS * COLS
+        && a.every(v => Number.isInteger(v) && v >= 0 && v <= N_DISTRICTS);
+      if (!valid) return false;
+      assignments = a.slice();
+      currentDistrict = 1;
+      render();
+      return true;
     }
 
     function loadMap(event)
@@ -620,15 +677,7 @@
       {
         try
         {
-          const data = JSON.parse(reader.result);
-          const a = Array.isArray(data) ? data : data.assignments;
-          const valid = Array.isArray(a)
-            && a.length === ROWS * COLS
-            && a.every(v => Number.isInteger(v) && v >= 0 && v <= N_DISTRICTS);
-          if (!valid) throw new Error('invalid map file');
-          assignments = a.slice();
-          currentDistrict = 1;
-          render();
+          if (!applyAssignments(JSON.parse(reader.result))) throw new Error('invalid map file');
         } catch
         {
           alert("Could not load that file — it doesn't look like a saved map.");

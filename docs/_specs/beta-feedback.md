@@ -23,3 +23,12 @@ These notes describe changes to make, based on feedback from Beta testers.
 
 -   Get rid of the intermediate "What is gerrymandering?" page, i.e., have the instructions page be the first thing users see 
     when they click on the lesson. 
+
+## Tweaks
+
+-   Move the "Districts" label outside the district selector box.
+-   Line the district selector box and the map box up vertically.
+-   Switch the order of the View options -- Map Colors first (default), then Partisan Lean.
+
+-   Can we allow users to name the file and specify the location when saving a map w/o a security issue? 
+-   I have canonical solutions for the 5 puzzles. Can these be made available to users to load, i.e., as part of the site?
