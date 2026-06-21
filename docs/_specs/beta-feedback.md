@@ -32,3 +32,8 @@ These notes describe changes to make, based on feedback from Beta testers.
 
 -   Can we allow users to name the file and specify the location when saving a map w/o a security issue? 
 -   I have canonical solutions for the 5 puzzles. Can these be made available to users to load, i.e., as part of the site?
+
+-   Make the default file name track the puzzle scenario using the same default as the canonical solutions, e.g., proportional.json.
+-   Move the "Solution" button below the district selector in the space to the left of the map.
+    Rename it "Show Solution".
+-   What is the "Warning: this site" message on Save about?

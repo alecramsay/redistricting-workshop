@@ -132,6 +132,10 @@
       flex-shrink: 0;
     }
 
+    .show-solution {
+      margin-top: 12px;
+    }
+
     /* District panel */
 
     .district-panel {
@@ -315,7 +319,6 @@
       <option value="4">5 &#8212; Competitive</option>
     </select>
     <button class="btn-reset" onclick="resetPuzzle()">Reset</button>
-    <button class="btn-reset" onclick="loadSolution()">Solution</button>
     <button class="btn-reset" onclick="saveMap()">Save</button>
     <button class="btn-reset" onclick="document.getElementById('load-input').click()">Load</button>
     <input type="file" id="load-input" accept="application/json,.json" style="display:none"
@@ -352,6 +355,7 @@
       </table>
         <div class="status-row" id="split-row"></div>
       </div>
+      <button class="btn-reset show-solution" onclick="loadSolution()">Show Solution</button>
     </div>
     <div class="map-col">
       <div class="section-label">Map</div>
@@ -622,6 +626,8 @@
     async function saveMap()
     {
       const data = JSON.stringify({version: 1, assignments});
+      // Default to the current puzzle's name, matching the canonical solution files.
+      const filename = `${PUZZLES[currentPuzzle].name}.json`;
 
       // Preferred: native save dialog (name + location). Chromium browsers only.
       if (window.showSaveFilePicker)
@@ -629,7 +635,7 @@
         try
         {
           const handle = await window.showSaveFilePicker({
-            suggestedName: 'redistricting-map.json',
+            suggestedName: filename,
             types: [{description: 'Redistricting map', accept: {'application/json': ['.json']}}],
           });
           const writable = await handle.createWritable();
@@ -648,7 +654,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'redistricting-map.json';
+      a.download = filename;
       a.click();
       URL.revokeObjectURL(url);
     }
