@@ -37,3 +37,6 @@ These notes describe changes to make, based on feedback from Beta testers.
 -   Move the "Solution" button below the district selector in the space to the left of the map.
     Rename it "Show Solution".
 -   What is the "Warning: this site" message on Save about?
+
+-   Showing the solution shouldn't result in the "Puzzle solved!" message.
+-   Make the default location for saving/loading maps be the downloads folder.
