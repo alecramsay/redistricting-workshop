@@ -73,6 +73,17 @@
       background: #EEE;
     }
 
+    .btn-reset:disabled {
+      color: #AAA;
+      border-color: #DDD;
+      background: #F7F7F7;
+      cursor: default;
+    }
+
+    .btn-reset:disabled:hover {
+      background: #F7F7F7;
+    }
+
     .view-controls {
       display: flex;
       align-items: center;
@@ -130,6 +141,11 @@
     .districts-col,
     .map-col {
       flex-shrink: 0;
+    }
+
+    .finish-map {
+      margin-top: 12px;
+      margin-right: 8px;
     }
 
     .show-solution {
@@ -355,6 +371,8 @@
       </table>
         <div class="status-row" id="split-row"></div>
       </div>
+      <button class="btn-reset finish-map" id="finish-btn" onclick="finishMap()" disabled
+        title="Fills the remaining district once the other three are drawn">Finish Map</button>
       <button class="btn-reset show-solution" onclick="loadSolution()">Show Solution</button>
     </div>
     <div class="map-col">
@@ -553,30 +571,29 @@
       viewingSolution = false;
       const i = cellIdx(r, c);
       assignments[i] = assignments[i] === currentDistrict ? 0 : currentDistrict;
-      tryAutofillFourth();
       render();
     }
 
-    function tryAutofillFourth()
+    // Fill all unassigned cells with the single remaining incomplete district.
+    // Triggered by the "Finish Map" button, which is enabled only when the other
+    // three districts are fully drawn (see updateFinishButton).
+    function finishMap()
     {
       const sizes = new Array(N_DISTRICTS + 1).fill(0);
       for (const a of assignments) if (a > 0) sizes[a]++;
 
-      const complete = [];
       const incomplete = [];
       for (let d = 1; d <= N_DISTRICTS; d++)
-      {
-        if (sizes[d] === CELLS_PER_DISTRICT) complete.push(d);
-        else incomplete.push(d);
-      }
+        if (sizes[d] !== CELLS_PER_DISTRICT) incomplete.push(d);
 
-      if (complete.length === N_DISTRICTS - 1 && incomplete.length === 1)
-      {
-        const d4 = incomplete[0];
-        for (let i = 0; i < assignments.length; i++)
-          if (assignments[i] === 0) assignments[i] = d4;
-        currentDistrict = d4;
-      }
+      if (incomplete.length !== 1) return;  // guard: button should be disabled otherwise
+
+      const d4 = incomplete[0];
+      for (let i = 0; i < assignments.length; i++)
+        if (assignments[i] === 0) assignments[i] = d4;
+      currentDistrict = d4;
+      viewingSolution = false;
+      render();
     }
 
     function setViewMode(mode)
@@ -982,6 +999,8 @@
         split += `&nbsp;&nbsp;<span class="split-pending">(${incomplete} district${incomplete !== 1 ? 's' : ''} incomplete)</span>`;
       document.getElementById('split-row').innerHTML = split;
 
+      updateFinishButton(results);
+
       const puzzle = PUZZLES[currentPuzzle];
       document.getElementById('puzzle-goal').textContent = puzzle.goal;
       document.getElementById('puzzle-hint').textContent = puzzle.hint;
@@ -1007,6 +1026,14 @@
       {
         hideCompletion();
       }
+    }
+
+    // Enable "Finish Map" only when exactly three districts are fully drawn,
+    // leaving a single incomplete district to fill in.
+    function updateFinishButton(results)
+    {
+      const drawn = results.filter(r => r.size === CELLS_PER_DISTRICT).length;
+      document.getElementById('finish-btn').disabled = drawn !== N_DISTRICTS - 1;
     }
 
     // ── Completion message ─────────────────────────────────────────────────────────

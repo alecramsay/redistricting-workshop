@@ -40,3 +40,21 @@ These notes describe changes to make, based on feedback from Beta testers.
 
 -   Showing the solution shouldn't result in the "Puzzle solved!" message.
 -   Make the default location for saving/loading maps be the downloads folder.
+
+## Bugs
+
+-   When you load an example solution, clicking on a voter in the selected district results in the completion message,
+    as opposed to unassigning it from the district (leaving it unassigned).
+-   If a district has more voters than the target number, clicking on one of those voters doesn't unassign the voter from the district
+    leaving them unassigned. Instead, it assigns them to some other (next?) district.
+-   The correct behavior is always that clicking on a voter should (a) unassign the voter from the district if the selected district
+    is the same as the assigned district and (b) assign the voter to the selected district if the selected district is different from the assigned district.
+-   Review this assign/unassign behavior and interactions with loading example solutions. 
+
+## More Tweaks
+
+-   Change the "Show Solution" button text to "Show Example Solution".
+-   Make the instructions page a Markdown file, so it's easier to edit and format.
+-   Add a bounding box underneath the district selector and to the left of the map.
+    Make it fill that space with the same margins.
+    Show the "Show Example Solution" button in this box, and move the completion message to this box as well.
