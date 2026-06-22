@@ -64,3 +64,5 @@ These notes describe changes to make, based on feedback from Beta testers.
 -   Put the number of incomplete districts on a second separate line, so the width of the selector box doesn't change.
     Similarly, always have a line for this (even if blank), so the height of the selector box doesn't change either.
 -   Make the instructions page a Markdown file, so it's easier to edit and format.
+
+-   Like the puzzles instructions, convert completion.html to a Markdown file. Don't worry about the styling.
