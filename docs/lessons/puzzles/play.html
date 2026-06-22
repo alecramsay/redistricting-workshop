@@ -117,7 +117,7 @@
 
     .game-area {
       display: flex;
-      align-items: flex-start;
+      align-items: stretch;
       gap: 28px;
       margin-bottom: 16px;
     }
@@ -138,18 +138,26 @@
       flex-shrink: 0;
     }
 
-    .districts-col,
+    .districts-col {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
     .map-col {
       flex-shrink: 0;
     }
 
-    .finish-map {
-      margin-top: 12px;
-      margin-right: 8px;
-    }
-
-    .show-solution {
-      margin-top: 12px;
+    /* Unbordered box below the Districts selector: actions + completion message.
+       Fills the space left of the map, with the same padding as the box above. */
+    .controls-box {
+      margin-top: 16px;
+      padding: 12px 14px;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
     }
 
     /* District panel */
@@ -282,12 +290,13 @@
 
     .split-pending {
       color: #888;
+      margin-top: 4px;
     }
 
-    /* Completion message (non-modal, below the map) */
+    /* Completion message (non-modal) — pinned to the bottom of the controls box. */
 
     .completion-msg {
-      margin: 4px 0 0;
+      margin: auto 0 0;
       padding: 10px 14px;
       border-radius: 6px;
       background: #DCFCE7;
@@ -295,7 +304,10 @@
       color: #166534;
       font-weight: 600;
       font-size: 0.9rem;
-      max-width: 520px;
+      align-self: stretch;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
     }
 
     .completion-msg[hidden] {
@@ -371,17 +383,18 @@
       </table>
         <div class="status-row" id="split-row"></div>
       </div>
-      <button class="btn-reset finish-map" id="finish-btn" onclick="finishMap()" disabled
-        title="Fills the remaining district once the other three are drawn">Finish Map</button>
-      <button class="btn-reset show-solution" onclick="loadSolution()">Show Solution</button>
+      <div class="controls-box">
+        <button class="btn-reset finish-map" id="finish-btn" onclick="finishMap()" disabled
+          title="Fills the remaining district once the other three are drawn">Finish Map</button>
+        <button class="btn-reset show-solution" onclick="loadSolution()">Show Example Solution</button>
+        <div class="completion-msg" id="completion-msg" hidden></div>
+      </div>
     </div>
     <div class="map-col">
       <div class="section-label">Map</div>
       <svg id="grid" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
   </div>
-
-  <div class="completion-msg" id="completion-msg" hidden></div>
 
   <a class="takeaways-link" href="completion.html">Takeaways &#8594;</a>
 
@@ -989,14 +1002,18 @@
       const ties = results.filter(r => r.winner === 'T' && r.contiguous).length;
       const incomplete = N_DISTRICTS - rWins - bWins - ties;
 
-      let split = '<span class="split-label">District results:&nbsp;</span>';
+      let split = '<span class="split-label">Results:&nbsp;</span>';
       split += `<span class="split-red">Red: ${rWins}</span>`;
       split += '&nbsp;&nbsp;';
       split += `<span class="split-blue">Blue: ${bWins}</span>`
       split += '&nbsp;&nbsp;';
       split += `<span class="split-tie">Ties: ${ties}</span>`;
-      if (incomplete > 0)
-        split += `&nbsp;&nbsp;<span class="split-pending">(${incomplete} district${incomplete !== 1 ? 's' : ''} incomplete)</span>`;
+      // Always render the incomplete-count line (blank when none) so the box's
+      // width and height stay fixed regardless of progress.
+      const pending = incomplete > 0
+        ? `${incomplete} district${incomplete !== 1 ? 's' : ''} incomplete`
+        : '&nbsp;';
+      split += `<div class="split-pending">${pending}</div>`;
       document.getElementById('split-row').innerHTML = split;
 
       updateFinishButton(results);

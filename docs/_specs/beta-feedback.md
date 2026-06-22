@@ -53,8 +53,14 @@ These notes describe changes to make, based on feedback from Beta testers.
 
 ## More Tweaks
 
--   Change the "Show Solution" button text to "Show Example Solution".
+-   Have an unbordered bounding box underneath the district selector and to the left of the map.
+    Make it fill that space with the same margins. Don't have a label.
+-   Include the "Finish Map" button in this box.
+-   Include the "Show Solutions" button in this box below the "Finish Map" button.
+    Change the "Show Solution" button text to "Show Example Solution".
+-   Write the completion message at the bottom of this box as well.
+    Make sure it wraps (if necessary) and doesn't overflow the box.
+-   In the district selector, change "District results" to simply "Results".
+-   Put the number of incomplete districts on a second separate line, so the width of the selector box doesn't change.
+    Similarly, always have a line for this (even if blank), so the height of the selector box doesn't change either.
 -   Make the instructions page a Markdown file, so it's easier to edit and format.
--   Add a bounding box underneath the district selector and to the left of the map.
-    Make it fill that space with the same margins.
-    Show the "Show Example Solution" button in this box, and move the completion message to this box as well.
