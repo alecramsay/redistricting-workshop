@@ -14,7 +14,7 @@ Some key discussion points:
   different outcomes, depending on how district lines are drawn.
 - A gerrymander is not fundamentally about crazy district shapes, although a
   gerrymander can have crazy shapes. Gerrymandering is about grouping voters for
-  political advantage. Groupings can be based on partisan affiliation, race or ethnicity,
+  political advantage. Groupings can be based on partisan affiliation (partisan gerrymandering), race or ethnicity (racial gerrymandering),
   or likeminded-but-opposed views on policy issues (e.g., gun control, reproductive
   rights, climate change, etc.).
 - The two main gerrymandering techniques are "packing" — concentrating one party's voters into a
@@ -37,6 +37,8 @@ Some questions to ponder:
 - How is the distortion due to SMD different from expressly prohibited forms of dilution,
   such as denying citizens the right to vote, altering ballots, stuffing ballot boxes, or malapportionment?
 - Are there alternatives to SMD that yield fairer results? What are the tradeoffs?
+
+*What else?*
 
 [← Back to puzzles](play.html)
 
