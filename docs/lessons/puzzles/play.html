@@ -160,6 +160,18 @@
       gap: 12px;
     }
 
+    .finish-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .finish-hint {
+      color: #666;
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
     /* District panel */
 
     .district-panel {
@@ -383,8 +395,11 @@
         <div class="status-row" id="split-row"></div>
       </div>
       <div class="controls-box">
-        <button class="btn-reset finish-map" id="finish-btn" onclick="finishMap()" disabled
-          title="Fills the remaining district once the other three are drawn">Finish Map</button>
+        <div class="finish-row">
+          <button class="btn-reset finish-map" id="finish-btn" onclick="finishMap()" disabled
+            title="Fills the remaining district once the other three are drawn">Finish Map</button>
+          <span class="finish-hint">when 3 districts are complete</span>
+        </div>
         <button class="btn-reset show-solution" onclick="loadSolution()">Show Example Solution</button>
         <div class="completion-msg" id="completion-msg" hidden></div>
       </div>

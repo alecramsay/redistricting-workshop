@@ -66,3 +66,9 @@ These notes describe changes to make, based on feedback from Beta testers.
 -   Make the instructions page a Markdown file, so it's easier to edit and format.
 
 -   Like the puzzles instructions, convert completion.html to a Markdown file. Don't worry about the styling.
+
+## Final Edits
+
+-   I've revised the instructions and takeaways/discussion text significantly.
+-   The last change I'd like to make before more beta user testing is adding "when 3 districts are complete" 
+    to the right of the "Finish Map" button, so it's clear that it won't be enabled until then.
