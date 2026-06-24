@@ -33,7 +33,8 @@ Some key discussion points:
 
 Some questions to ponder:
 
-- What *is* the ideal votes-seats relationship? Is there one?
+- How does one gauge likely *future* partisan voting behavior?
+- What is the ideal votes-seats relationship? Is there one?
 - How is the distortion due to SMD different from expressly prohibited forms of dilution,
   such as denying citizens the right to vote, altering ballots, stuffing ballot boxes, or malapportionment?
 - Are there alternatives to SMD that yield fairer results? What are the tradeoffs?

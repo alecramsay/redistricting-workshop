@@ -46,7 +46,8 @@ When you open the applet, you'll see several things:
 - A **Puzzle** picker dropdown at the top, where you can select which puzzle to solve.
   The choices are the 5 scenarios described above: Proportional, Sweetheart, Packing, Cracking, and Competitive.
 - A **View** selector below that, where you can choose between Map Colors (the colors of the districts) and 
-  Partisan Lean (whether the district will be won by Red, Blue, or is a tie/competitive shown as yellow).
+  Partisan Lean (whether the district will be won by Red or Blue).
+  The more a district is leaning toward one party, the darker that party's color will be in the Partisan Lean view.
 - The next lines describes the goal for the puzzle along with a hint about what is possible for that scenario.
 - Below that are a **Districts** panel (on the left) and a **Map** (on the right).
 - The map starts off empty with no voters assigned to any district. 
