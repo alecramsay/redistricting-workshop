@@ -441,15 +441,18 @@
     // Voter dot: solid party fill, white letter.
     const PARTY_COLOR = {R: '#DC2626', B: '#2563EB'};
 
-    // District identification: one border/swatch color per district.
-    const DISTRICT_BORDER = ['#f2f822', '#1a068c', '#cf4a75', '#f99740'];
+    // District identification: one swatch color per district.
+    // CVD-friendly (Okabe–Ito subset), no blue or red so it never reads as a
+    // party color. Full strength here; the map fills below are these at 50%.
+    const DISTRICT_BORDER = ['#E69F00', '#009E73', '#F0E442', '#CC79A7'];
 
-    // District fill in Map Colors mode.
+    // District fill in Map Colors mode: the swatch colors at 50% over the
+    // white grid backdrop, so voters stay visible.
     const DISTRICT_MAP_FILL = [
-      'rgba(242,248,34,0.50)',
-      'rgba(26,6,140,0.50)',
-      'rgba(207,74,117,0.50)',
-      'rgba(249,151,64,0.50)',
+      'rgba(230,159,0,0.50)',
+      'rgba(0,158,115,0.50)',
+      'rgba(240,228,66,0.50)',
+      'rgba(204,121,167,0.50)',
     ];
 
     // Cell background fill in Partisan Lean mode.
@@ -792,6 +795,16 @@
       const g = document.createElementNS(SVG_NS, 'g');
       g.setAttribute('transform', `translate(${PAD}, ${PAD})`);
       svg.appendChild(g);
+
+      // White grid backdrop, behind the cells, so the translucent fills and
+      // voter dots sit over white (the page background is not white).
+      const bg = document.createElementNS(SVG_NS, 'rect');
+      bg.setAttribute('x', 0);
+      bg.setAttribute('y', 0);
+      bg.setAttribute('width', COLS * CELL_SIZE);
+      bg.setAttribute('height', ROWS * CELL_SIZE);
+      bg.setAttribute('fill', '#FFF');
+      g.appendChild(bg);
 
       for (let r = 0; r < ROWS; r++)
       {

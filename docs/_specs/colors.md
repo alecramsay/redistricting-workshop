@@ -58,3 +58,30 @@ export const PartisanDistrictClassicColors50 = [
   '#8080C5',  // #00008B
   '#8080C5',
 ];
+
+-----
+## Map colors (chosen)
+
+4 CVD-friendly colors for coloring districts (the "Map Colors" view), drawn from
+the Okabe–Ito palette. None is blue or red, so they never read as a party color,
+and all four stay distinguishable under common color-vision deficiencies and when
+adjacent.
+
+These are the swatch / district-identification colors at full strength:
+
+  '#E69F00',  // Orange
+  '#009E73',  // Bluish green
+  '#F0E442',  // Yellow
+  '#CC79A7',  // Reddish purple
+
+On the map they fill cells at 50% opacity over the white grid background, the same
+way the partisan colors are rendered, so the voter dots stay visible:
+
+  'rgba(230,159,0,0.50)',    // #E69F00 Orange
+  'rgba(0,158,115,0.50)',    // #009E73 Bluish green
+  'rgba(240,228,66,0.50)',   // #F0E442 Yellow
+  'rgba(204,121,167,0.50)',  // #CC79A7 Reddish purple
+
+Implemented in docs/lessons/puzzles/play.html as DISTRICT_BORDER (full strength
+swatches) and DISTRICT_MAP_FILL (50% cell fills). The map grid has a white
+background; the puzzle page background is not white, and that's OK.
