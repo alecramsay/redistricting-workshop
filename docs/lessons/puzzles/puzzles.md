@@ -12,7 +12,7 @@ into seats.
 
 You'll draw maps for a simple state with 4 districts.
 The state is an 8x8 grid of 64 voters: 32 who vote Red (R) and 32 who vote Blue (B).
-The arrangement of the voters in the state is fixed: the state's "political geography."
+The arrangement of the voters in the state is fixed: the state's "political geography" [^1].
 Because the district lines can change though, different maps can have very different characteristics, including:
 
 - **Proportional** — 2 Red-leaning-but-somewhat-competitive districts and 2 similar
@@ -80,3 +80,5 @@ Finally, to the right of the Puzzle picker, there are three buttons:
 - **Save** - saves the current assignments to a file, so you can load and show a complete map later or 
   save an interim partial set of assignments that you can reuse as a starting point for further mapdrawing
 - **Load** - restores a saved set of assignments, so you can share solutions or pick up previous work
+
+[^1]: This political geography and the 2nd - 5th scenarios come from "Glossary" at [REDISTRICTING THE NATION](http://bit.ly/2I1JJ90).
