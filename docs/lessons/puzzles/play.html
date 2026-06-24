@@ -455,14 +455,22 @@
       'rgba(204,121,167,0.50)',
     ];
 
-    // Cell background fill in Partisan Lean mode.
-    const WINNER_FILL = {
-      R: 'rgba(239,68,68,0.38)',
-      B: 'rgba(59,130,246,0.38)',
-      T: 'rgba(234,179,8,0.42)',
-      I: 'rgba(210,210,210,0.22)',   // assigned, in progress
-      U: 'rgba(220,220,220,0.15)',   // unassigned
-    };
+    // Fill for unassigned cells (both view modes).
+    const UNASSIGNED_FILL = 'rgba(220,220,220,0.15)';
+
+    // Partisan Lean fill: DRA "Classic" color stops keyed to Blue vote share,
+    // already blended to 50% opacity over white so the map stays light and the
+    // voters show through. No competitive/tied yellow. See docs/_specs/colors.md.
+    // Each band is a Blue-share range [lo, hi) with a from→to color it interpolates;
+    // the saturated end bands are solid, the central bands fade toward near-white.
+    const PARTISAN_STOPS = [
+      {lo: 0.00, hi: 0.40, from: '#CB808C', to: '#CB808C'},
+      {lo: 0.40, hi: 0.45, from: '#FF9090', to: '#FF9090'},
+      {lo: 0.45, hi: 0.50, from: '#FFB0B0', to: '#FFEFEF'},
+      {lo: 0.50, hi: 0.55, from: '#EFEFFF', to: '#B0B0FF'},
+      {lo: 0.55, hi: 0.60, from: '#9090FF', to: '#9090FF'},
+      {lo: 0.60, hi: 1.01, from: '#8080C5', to: '#8080C5'},
+    ];
 
     // ── Puzzles ─────────────────────────────────────────────────────────────────
 
@@ -571,24 +579,44 @@
       return {size, R, B, contiguous, winner};
     }
 
+    function hexToRgb(hex)
+    {
+      const n = parseInt(hex.slice(1), 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    }
+
+    // Linear interpolation between two hex colors; t in [0, 1].
+    function lerpHex(from, to, t)
+    {
+      const a = hexToRgb(from), b = hexToRgb(to);
+      const ch = i => Math.round(a[i] + (b[i] - a[i]) * t);
+      return `rgb(${ch(0)}, ${ch(1)}, ${ch(2)})`;
+    }
+
+    // Blue vote share (0..1) → fill color on the 50%-over-white partisan scale.
+    function partisanStopColor(blueShare)
+    {
+      for (const band of PARTISAN_STOPS)
+      {
+        if (blueShare < band.hi)
+        {
+          const t = (blueShare - band.lo) / (band.hi - band.lo);
+          return lerpHex(band.from, band.to, Math.max(0, Math.min(1, t)));
+        }
+      }
+      const last = PARTISAN_STOPS[PARTISAN_STOPS.length - 1];
+      return lerpHex(last.from, last.to, 1);
+    }
+
     function partisanFillColor(size, R, B)
     {
-      if (size === 0) return WINNER_FILL.U;
-      if (R === B)
-      {
-        // Tied: yellow, deepening as more cells are assigned.
-        const opacity = (0.25 + (size / CELLS_PER_DISTRICT) * 0.25).toFixed(2);
-        return `rgba(234,179,8,${opacity})`;
-      }
-      // Lead-proportional opacity: faint at 1-cell edge, full at 16-0.
-      const lead = Math.abs(R - B);
-      const opacity = (0.20 + (lead / CELLS_PER_DISTRICT) * 0.30).toFixed(2);
-      return R > B ? `rgba(239,68,68,${opacity})` : `rgba(59,130,246,${opacity})`;
+      if (size === 0) return UNASSIGNED_FILL;
+      return partisanStopColor(B / (R + B));
     }
 
     function cellFillColor(d, results)
     {
-      if (d === 0) return WINNER_FILL.U;
+      if (d === 0) return UNASSIGNED_FILL;
       if (!showPartisanLean) return DISTRICT_MAP_FILL[d - 1];
       const res = results[d - 1];
       return partisanFillColor(res.size, res.R, res.B);
