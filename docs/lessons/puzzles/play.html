@@ -305,6 +305,17 @@
       margin-top: 4px;
     }
 
+    /* Warn (and flash) when one or more districts are not contiguous. */
+    .split-pending.not-contiguous {
+      color: #991B1B;
+      font-weight: 600;
+      animation: pending-flash 1s ease-in-out infinite;
+    }
+
+    @keyframes pending-flash {
+      50% { opacity: 0.3; }
+    }
+
     /* Completion message (non-modal) — pinned to the bottom of the controls box. */
 
     .completion-msg {
@@ -1055,7 +1066,6 @@
       const rWins = results.filter(r => r.winner === 'R' && r.contiguous).length;
       const bWins = results.filter(r => r.winner === 'B' && r.contiguous).length;
       const ties = results.filter(r => r.winner === 'T' && r.contiguous).length;
-      const incomplete = N_DISTRICTS - rWins - bWins - ties;
 
       let split = '<span class="split-label">Results:&nbsp;</span>';
       split += `<span class="split-red">Red: ${rWins}</span>`;
@@ -1063,12 +1073,15 @@
       split += `<span class="split-blue">Blue: ${bWins}</span>`
       split += '&nbsp;&nbsp;';
       split += `<span class="split-tie">Ties: ${ties}</span>`;
-      // Always render the incomplete-count line (blank when none) so the box's
-      // width and height stay fixed regardless of progress.
-      const pending = incomplete > 0
-        ? `${incomplete} district${incomplete !== 1 ? 's' : ''} incomplete`
+      // Always render the status line (blank when all contiguous) so the box's
+      // width and height stay fixed regardless of progress. Empty districts count
+      // as contiguous, so this catches only partial or complete non-contiguous ones.
+      const notContiguous = results.filter(r => !r.contiguous).length;
+      const pending = notContiguous > 0
+        ? `${notContiguous} district${notContiguous !== 1 ? 's are' : ' is'} not contiguous`
         : '&nbsp;';
-      split += `<div class="split-pending">${pending}</div>`;
+      const pendingClass = notContiguous > 0 ? 'split-pending not-contiguous' : 'split-pending';
+      split += `<div class="${pendingClass}">${pending}</div>`;
       document.getElementById('split-row').innerHTML = split;
 
       updateFinishButton(results);
