@@ -30,7 +30,7 @@ For your maps to be valid, they must satisfy 3 requirements:
 - **Equal Population** — each district must have exactly 16 voters, and
 - **Contiguous** — the districts must all be contiguous, meaning that
   every voter in a district is adjacent to another voter in the same district
-  (share an edge, not just a corner)
+  (shares an edge, not just a corner)
 
 When assessing the partisan outcome of a map, 
 a district will be won by Red if it has 9 or more Red voters, by Blue if it has 9 or more Blue voters. 
