@@ -84,4 +84,6 @@ Finally, to the right of the Puzzle picker, there are three buttons:
   save an interim partial set of assignments that you can reuse as a starting point for further mapdrawing
 - **Load** - restores a saved set of assignments, so you can share solutions or pick up previous work
 
+## Footnotes
+
 [^1]: This political geography and the 2nd - 5th scenarios come from "Glossary" at [REDISTRICTING THE NATION](http://bit.ly/2I1JJ90).
