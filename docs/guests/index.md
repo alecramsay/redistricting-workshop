@@ -4,5 +4,5 @@ title: Guest Speakers
 permalink: guests/
 ---
 
-* [Anita Earls](???)
+* [Anita Earls](anita-earls/)
 * TODO

@@ -5,4 +5,5 @@ permalink: tutorials/
 ---
 
 * [Redistricting Puzzles](puzzles/puzzles.html)
+* [Introduction to DRA](dra/)
 * TODO
