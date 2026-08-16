@@ -10,5 +10,3 @@ Welcome to the Redistricting Workshop website!
 * [Guest Speakers](guest-speakers/)
 
 
-[Redistricting Puzzles](lessons/puzzles/puzzles.html)
-

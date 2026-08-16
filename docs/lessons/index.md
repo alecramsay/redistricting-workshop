@@ -3,4 +3,5 @@ layout: default
 title: Lessons
 ---
 
-* [Redistricting Puzzles](lessons/puzzles/puzzles.html)
+* [Redistricting Puzzles](puzzles/puzzles.html)
+* TODO
