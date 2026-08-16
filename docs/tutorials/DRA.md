@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Hands-on Tutorials
+title: Introduction to DRA
 permalink: tutorials/dra/
 ---
 

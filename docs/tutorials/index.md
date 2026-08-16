@@ -4,6 +4,6 @@ title: Hands-on Tutorials
 permalink: tutorials/
 ---
 
-* [Redistricting Puzzles](puzzles/puzzles.html)
+* [Redistricting Puzzles](puzzles/)
 * [Introduction to DRA](dra/)
 * TODO
