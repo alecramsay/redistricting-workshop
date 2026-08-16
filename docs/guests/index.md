@@ -1,7 +1,8 @@
 ---
 layout: page
 title: Guest Speakers
-permalink: guest-speakers/
+permalink: guests/
 ---
 
-TODO
+* [Anita Earls](???)
+* TODO

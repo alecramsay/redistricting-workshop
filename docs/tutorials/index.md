@@ -4,4 +4,5 @@ title: Hands-on Tutorials
 permalink: tutorials/
 ---
 
-TODO
+* [Redistricting Puzzles](puzzles/puzzles.html)
+* TODO

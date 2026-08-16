@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Redistricting Puzzles — Instructions
+permalink: tutorials/puzzles/
 ---
 
 [← Home](../../)
