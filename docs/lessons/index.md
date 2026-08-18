@@ -4,7 +4,7 @@ title: Lessons
 permalink: lessons/
 ---
 
-* [Overview](overview/) ([Syllabus](https://docs.google.com/document/d/1STkH5Sm1XYopRiTcF-fxagZFYWOwTLLSsf-nA2AvX_I/edit?usp=sharing))
+* [Overview](overview/) (Syllabus @ [https://bit.ly/41acsC9](https://bit.ly/41acsC9))
 * [What is redistricting? ... and why does it matter?](redistricting/)
 * [Constraints on valid redistricting plans](constraints/)
 * [Criteria for evaluating redistricting plans](criteria/)
