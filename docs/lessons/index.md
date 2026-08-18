@@ -10,4 +10,4 @@ permalink: lessons/
 * [Criteria for evaluating redistricting plans](criteria/)
 * [Advanced measures of partisan bias & responsiveness](partisan/)
 * [The Voting Rights Act and minority representation](minority/)
-* [Wrap Up](wrapup/)
+* [Wrap up](wrapup/)

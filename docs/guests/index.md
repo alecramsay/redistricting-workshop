@@ -5,4 +5,6 @@ permalink: guests/
 ---
 
 * [Anita Earls](anita-earls/)
-* TODO
+* [Christopher Warshaw](christopher-warshaw/)
+* [Jeffrey Barton](jeffrey-barton/)
+* [Jonathan Cervas](jonathan-cervas/)
