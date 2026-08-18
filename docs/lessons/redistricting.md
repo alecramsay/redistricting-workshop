@@ -10,4 +10,6 @@ permalink: lessons/redistricting/
 * Congressional Redistricting & Elections
 * Misconceptions
 
+---
+
 * Questions

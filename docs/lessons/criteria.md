@@ -10,4 +10,6 @@ permalink: lessons/criteria/
 * Partisan Analytics
 * Minority Representation
 
+---
+
 * Questions

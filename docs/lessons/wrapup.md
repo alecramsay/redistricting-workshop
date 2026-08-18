@@ -4,4 +4,10 @@ title: Wrap Up
 permalink: lessons/wrapup/
 ---
 
-* TODO
+* Redistricting as a Game
+* Some Musings
+* Open Redistricting -- [Highlights](https://bit.ly/3UEFAS4){:target="_blank" rel="noopener"}
+
+---
+
+* Questions

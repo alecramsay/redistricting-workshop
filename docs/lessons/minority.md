@@ -9,4 +9,6 @@ permalink: lessons/minority/
 * Beginning With Shelby ... Ending With Callais
 * Measures of Minority Opportunity (vs. VRA Compliance)
 
+---
+
 * Questions

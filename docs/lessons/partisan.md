@@ -12,4 +12,6 @@ permalink: lessons/partisan/
 * Election Data
 * Methodology
 
+---
+
 * Questions

@@ -12,4 +12,6 @@ permalink: lessons/constraints/
 * Free of Holes
 * Protect Minorities
 
+---
+
 * Questions
