@@ -4,4 +4,7 @@ title: Anita Earls
 permalink: guests/anita-earls/
 ---
 
-TODO
+Associate Justice, North Carolina Supreme Court
+https://en.wikipedia.org/wiki/Anita_Earls
+
+Williams class of 1981

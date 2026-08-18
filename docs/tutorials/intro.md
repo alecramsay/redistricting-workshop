@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Introduction to DRA
-permalink: tutorials/dra/
+permalink: tutorials/intro/
 ---
 
 * TODO

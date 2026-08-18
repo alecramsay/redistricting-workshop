@@ -6,7 +6,7 @@ permalink: tutorials/
 
 * [Redistricting Puzzles](puzzles/)
 * [Introduction to DRA](intro/)
-* [Checking requirements in DRA](contraints/)
+* [Checking requirements in DRA](constraints/)
 * [How to evaluate & compare redistricting maps in DRA](criteria/)
 * [Partisan analytics in DRA](partisan/)
 * [Gauging the opportunity for minority representation in DRA](minority/)
