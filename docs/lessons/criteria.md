@@ -4,4 +4,10 @@ title: Criteria for evaluating redistricting plans
 permalink: lessons/criteria/
 ---
 
-* TODO
+* Metrics
+* Compactness
+* County-District Splitting
+* Partisan Analytics
+* Minority Representation
+
+* Questions

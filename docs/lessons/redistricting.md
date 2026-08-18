@@ -1,7 +1,13 @@
 ---
 layout: page
-title: The Voting Rights Act and minority representation
-permalink: lessons/minority/
+title: What is redistricting? ... and why does it matter?
+permalink: lessons/redistricting/
 ---
 
-* TODO
+* Civics Basics & Political Context
+* Apportionment & Representation
+* Single-Member Districts & First Past the Post
+* Congressional Redistricting & Elections
+* Misconceptions
+
+* Questions

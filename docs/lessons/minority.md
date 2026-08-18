@@ -1,7 +1,12 @@
 ---
 layout: page
-title: What is redistricting? ... and why does it matter?
-permalink: lessons/redistricting/
+title: The Voting Rights Act and minority representation
+permalink: lessons/minority/
 ---
 
-* TODO
+* The Voting Rights Act (VRA)
+* Gingles
+* Beginning With Shelby ... Ending With Callais
+* Measures of Minority Opportunity (vs. VRA Compliance)
+
+* Questions
