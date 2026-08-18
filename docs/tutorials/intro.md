@@ -4,4 +4,4 @@ title: Introduction to DRA
 permalink: tutorials/intro/
 ---
 
-* TODO
+[Outline](https://bit.ly/4wBph5V)

@@ -4,4 +4,4 @@ title: Checking requirements in DRA
 permalink: tutorials/constraints/
 ---
 
-* TODO
+[Outline](https://bit.ly/4x8RzG7)
