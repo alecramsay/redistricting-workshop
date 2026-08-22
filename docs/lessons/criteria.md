@@ -13,4 +13,4 @@ permalink: lessons/criteria/
 ---
 
 * Questions
-* [Notes](https://bit.ly/3SNX4uM)
+* [Notes](https://bit.ly/3SNX4uM){:target="_blank" rel="noopener"}

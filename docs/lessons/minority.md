@@ -12,4 +12,4 @@ permalink: lessons/minority/
 ---
 
 * Questions
-* [Notes](https://bit.ly/4gfEBQY)
+* [Notes](https://bit.ly/4gfEBQY){:target="_blank" rel="noopener"}

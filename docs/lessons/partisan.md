@@ -15,4 +15,4 @@ permalink: lessons/partisan/
 ---
 
 * Questions
-* [Notes](https://bit.ly/4cPA8Sz)
+* [Notes](https://bit.ly/4cPA8Sz){:target="_blank" rel="noopener"}

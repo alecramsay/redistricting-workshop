@@ -15,4 +15,4 @@ permalink: lessons/constraints/
 ---
 
 * Questions
-* [Notes](https://bit.ly/4xUoCNZ)
+* [Notes](https://bit.ly/4xUoCNZ){:target="_blank" rel="noopener"}

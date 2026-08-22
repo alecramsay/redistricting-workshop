@@ -11,4 +11,4 @@ permalink: lessons/wrapup/
 ---
 
 * Questions
-* [Notes](https://bit.ly/4gd5FjF)
+* [Notes](https://bit.ly/4gd5FjF){:target="_blank" rel="noopener"}
