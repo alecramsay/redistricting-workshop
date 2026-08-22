@@ -12,3 +12,4 @@ permalink: lessons/minority/
 ---
 
 * Questions
+* [Notes](https://bit.ly/4gfEBQY)

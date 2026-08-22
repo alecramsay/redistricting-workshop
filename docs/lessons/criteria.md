@@ -13,3 +13,4 @@ permalink: lessons/criteria/
 ---
 
 * Questions
+* [Notes](https://bit.ly/3SNX4uM)

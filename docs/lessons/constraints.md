@@ -15,3 +15,4 @@ permalink: lessons/constraints/
 ---
 
 * Questions
+* [Notes](https://bit.ly/4xUoCNZ)

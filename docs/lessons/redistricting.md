@@ -13,3 +13,4 @@ permalink: lessons/redistricting/
 ---
 
 * Questions
+* [Notes](https://bit.ly/4ygoKrx)
