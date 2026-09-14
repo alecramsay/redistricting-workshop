@@ -5,7 +5,7 @@ title: Home
 
 Welcome!
 
-This site is for "WSP 140 - Redistricting Workshop: Maps, Metrics, and the Gerrymandering ‘Game’" 
+This site is for "Redistricting Workshop: Maps, Metrics, and the Gerrymandering ‘Game’" (WSP 140)
 taught by Alec Ramsay (<script>document.write(['ar35','@','williams.edu'].join(''))</script>).
 
 * [Website](https://bit.ly/3SK4lfn) (this page)
