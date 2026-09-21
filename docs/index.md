@@ -14,4 +14,4 @@ taught by Alec Ramsay '81 (<script>document.write(['ar35','@','williams.edu'].jo
 * [Hands-on Tutorials](tutorials/)
 * [Guest Speakers](guests/)
 * [Reading List](https://bit.ly/4xLvkpE)
-* [Project Ideas](https://bit.ly/4xLvkpE)
+* [Project Ideas](https://bit.ly/4xBsP8E)

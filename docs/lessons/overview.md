@@ -18,3 +18,7 @@ permalink: lessons/overview/
     * Reading (Optional)
     * Policies
 
+---
+
+* Questions
+* [Notes](https://bit.ly/3SU7Y2o){:target="_blank" rel="noopener"}
