@@ -4,6 +4,7 @@ title: Overview
 permalink: lessons/overview/
 ---
 
+* Introductions
 * About Me
 * Confession of a Computer Scientist Working on Redistricting
 * Hands On: Gerrymandering
@@ -14,6 +15,6 @@ permalink: lessons/overview/
     * Evaluation
     * Roadmap
     * Projects
-    * Reading List (Optional)
+    * Reading (Optional)
     * Policies
 

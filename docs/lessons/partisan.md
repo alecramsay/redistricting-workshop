@@ -9,8 +9,8 @@ permalink: lessons/partisan/
 * Measures of Partisan Bias
 * Measures of Competitiveness
 * A Framework for Evaluating Maps
-* Election Data
 * Methodology
+* Election Data
 
 ---
 

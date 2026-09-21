@@ -4,7 +4,7 @@ title: Constraints on valid redistricting plans
 permalink: lessons/constraints/
 ---
 
-* Terminology
+* Maps and Plans
 * Constraints vs. Criteria
 * Complete
 * Contiguous
