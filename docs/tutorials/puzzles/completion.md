@@ -7,7 +7,7 @@ title: Redistricting Puzzles — Takeaways
 
 # Discussion
 
-Some key discussion points:
+The basics:
 
 - Single-member districts (SMD) distort how votes get translated into seats: This is
   an inherent property of the *mechanism*. As a result, the same "political geography" yields
@@ -21,13 +21,23 @@ Some key discussion points:
   district where they win by a large margin, wasting their surplus votes — and
   "cracking" — splitting a party's voters across multiple districts where they are
   always in the minority.
+
+The essential logic of (more) gerrymandering is:
+
+- Use past election data and perceived trends to predict future voting
+- Pack (more) voters likely to vote against your party’s candidates into districts they would win by large(r) margins, so that you can 
+- Spread out (more) voters likely to vote for your party’s candidates across (more) districts they would win by small(er) margins 
+
+The smaller the projected margins in the marginal districts you hope to win, the bigger the potential reward in more seats won but the higher the risk. 
+If your predictions hold, your party will win a (bigger) disproportionate share of the seats. When actual voting for your party turns out to be much lower than expected (relative to the votes for the other party), however, the small margins aren’t enough and the marginal districts flip to the other party, i.e., the gerrymander backfires.
+
+Finer points:
+
 - Beware "neutral" criteria, e.g., compact districts aren't always fair due to the
   urban/rural sort. See [Compact Districts Aren't Fair](https://medium.com/dra-2020/compact-districts-arent-fair-7c17c2ff5d7e){:target="_blank" rel="noopener"}.
 - Gerrymandering can be explicit (acts of commission) or implicit (acts of omission).
   There is no such thing as unintentional gerrymandering!
 - Racial gerrymandering <s>is</s> was illegal, but partisan gerrymandering is not.
-
-*What else?*
 
 ## Questions
 
@@ -38,8 +48,6 @@ Some questions to ponder:
 - How is the distortion due to SMD different from expressly prohibited forms of dilution,
   such as denying citizens the right to vote, altering ballots, stuffing ballot boxes, or malapportionment?
 - Are there alternatives to SMD that yield fairer results? What are the tradeoffs?
-
-*What else?*
 
 [← Back to puzzles](play.html)
 
